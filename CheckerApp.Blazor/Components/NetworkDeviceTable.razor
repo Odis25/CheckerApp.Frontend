@@ -1,0 +1,79 @@
+﻿@inject IDialogService DialogService
+
+<MudSimpleTable Elevation="3" FixedHeader="true" Bordered="true" Dense="true" Style="min-height:81%;">
+    <thead>
+        <tr>
+            <th>Название</th>
+            <th>IP</th>
+            <th>MAC-адрес</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Value)
+        {
+            var index = Value.IndexOf(item);
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.IP</td>
+                <td>@item.MacAddress</td>
+                <td>
+                    <MudIconButton Size="Size.Small" Icon="@Icons.Filled.Edit" OnClick="()=> Update(index)"/>
+                    <MudIconButton Size="Size.Small" Icon="@Icons.Filled.Delete" OnClick="()=> Delete(index)"/>
+                </td>
+            </tr>
+        }
+    </tbody>
+</MudSimpleTable>
+<MudButton Class="mt-3" 
+           ButtonType="ButtonType.Button" 
+           Color="Color.Default" 
+           Variant="Variant.Filled" 
+           StartIcon="@Icons.Filled.AddLink" 
+           OnClick="Add" FullWidth="true">Добавить</MudButton>
+
+
+@code{
+
+    [Parameter] public IList<NetworkDeviceDto> Value { get; set; }
+    [Parameter] public EventCallback<IList<NetworkDeviceDto>> ValueChanged { get; set; }
+
+    private async Task Add()
+    {
+        var modalForm = DialogService.Show<NetworkDeviceAdd>("");
+        var result = await modalForm.Result;
+
+        if (!result.Cancelled)
+        {
+            var device = (NetworkDeviceDto)result.Data;
+            Value.Add(device);
+        }
+    }
+
+    private async Task Update(int index)
+    {
+        if (index == -1) return;
+
+        var device = Value.ElementAt(index);
+        var parameters = new DialogParameters { { "NetworkDevice", device } };
+        var modal = DialogService.Show<NetworkDeviceUpdate>("Редактировать", parameters);
+        var result = await modal.Result;
+
+        if (!result.Cancelled)
+        {
+            var newDevice = (NetworkDeviceDto)result.Data;
+            device.IP = newDevice.IP;
+            device.Name = newDevice.Name;
+            device.MacAddress = newDevice.MacAddress;
+        }
+    }
+
+    private void Delete(int index)
+    {
+        if (index == -1) return;
+
+        var device = Value.ElementAt(index);
+
+        Value.Remove(device);
+    }
+}

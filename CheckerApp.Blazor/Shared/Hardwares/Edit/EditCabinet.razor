@@ -1,0 +1,37 @@
+﻿<div class="col">
+    <div class="border p-2">
+        <div class="mb-2 row">
+            <div class="col">
+                <MudTextField Label="Позиция по проекту" @bind-Value="Value.Position" Variant="Variant.Outlined"></MudTextField>
+                <ValidationMessage For="()=> Value.Position"></ValidationMessage>
+            </div>
+        </div>
+        <div class="mb-2 row">
+            <div class="col">
+                <MudTextField Label="Серийный номер" @bind-Value="Value.SerialNumber" Variant="Variant.Outlined"></MudTextField>
+                <ValidationMessage For="()=> Value.SerialNumber"></ValidationMessage>
+            </div>
+        </div>
+        <div class="mb-2 row">
+            <div class="col">
+                <MudTextField Label="Ответственный за монтаж" @bind-Value="((CabinetVm)Value).ConstructedBy" Variant="Variant.Outlined"></MudTextField>
+                <ValidationMessage For="()=> ((CabinetVm)Value).ConstructedBy"></ValidationMessage>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <MudDatePicker Label="Дата завершения монтажа" AllowInput="false" @bind-Value="((CabinetVm)Value).Constructed" Variant="Variant.Outlined"></MudDatePicker>
+                <ValidationMessage For="()=> ((CabinetVm)Value).Constructed"></ValidationMessage>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public HardwareVm Value { get; set; }
+
+    [Parameter]
+    public EventCallback<HardwareVm> ValueChanged { get; set; }
+}

@@ -1,0 +1,55 @@
+﻿@page "/users"
+
+@using CheckerApp.Blazor.Models
+
+@if (Accounts == null)
+{
+    <MudGrid>
+        <MudItem xs="12" Class="d-flex justify-center align-center vh-80">
+            <div class="spinner"></div>
+        </MudItem>
+    </MudGrid>
+}
+else
+{
+    <MudGrid>
+        <MudItem xs="12">
+
+            <MudTable Elevation="2" T="Account"
+                      Class="mt-4 print-content" Items="@Accounts" Hover="true" Striped="true"
+                      Filter="((element) => FilterFunc(element))" FixedHeader="true" Height="86vh">
+                <ToolBarContent>
+                    <MudText Class="pl-3" Typo="Typo.h5">Пользователи приложения</MudText>
+                    <MudSpacer />
+                    <MudTextField @bind-Value="searchString" Placeholder="Поиск..."
+                                  Adornment="Adornment.Start"
+                                  AdornmentIcon="@Icons.Material.Filled.Search"
+                                  IconSize="Size.Medium"
+                                  Class="mt-0 pr-3"></MudTextField>
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Primary"
+                               OnClick="SaveChanges"
+                               StartIcon="@Icons.Filled.Save">Сохранить изменения</MudButton>
+                </ToolBarContent>
+                <HeaderContent>
+                    <MudTh><MudTableSortLabel SortBy="new Func<Account, object>(x => x.LastName)"><b>Фамилия</b></MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<Account, object>(x => x.FirstName)"><b>Имя</b></MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<Account, object>(x => x.Name)"><b>Имя аккаунта</b></MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<Account, object>(x => x.Role)"><b>Роль</b></MudTableSortLabel></MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Фамилия">@context.LastName</MudTd>
+                    <MudTd DataLabel="Имя">@context.FirstName</MudTd>
+                    <MudTd DataLabel="Имя аккаунта">@context.Name</MudTd>
+                    <MudTd DataLabel="Роль">
+                        <MudSelect T="string" @bind-Value="context.Role">
+                            <MudSelectItem Value="@("Admin")">Администратор</MudSelectItem>
+                            <MudSelectItem Value="@("SuperUser")">Модератор</MudSelectItem>
+                            <MudSelectItem Value="@("User")">Пользователь</MudSelectItem>
+                        </MudSelect>
+                    </MudTd>
+                </RowTemplate>
+            </MudTable>
+        </MudItem>
+    </MudGrid>
+}

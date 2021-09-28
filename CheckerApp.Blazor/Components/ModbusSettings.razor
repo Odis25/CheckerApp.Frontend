@@ -1,0 +1,55 @@
+﻿
+<MudGrid>
+    <MudItem xs="12">
+        <MudNumericField Margin="Margin.Dense" Label="Адрес устройства" @bind-Value="Value.Address" 
+                         Min="1" Max="256" Variant="Variant.Outlined">
+        </MudNumericField>
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudSelect T="string" Margin="Margin.Dense" Label="Baud rate" @bind-Value="Value.BoudRate" Variant="Variant.Outlined">
+            <MudSelectItem Value="@("9600")"/>
+            <MudSelectItem Value="@("19200")"/>
+            <MudSelectItem Value="@("38400")"/>
+            <MudSelectItem Value="@("57600")"/>
+            <MudSelectItem Value="@("115200")"/>
+        </MudSelect>
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudSelect Margin="Margin.Dense" Label="Parity" @bind-Value="Value.Parity" Variant="Variant.Outlined">
+            @foreach (var item in parity)
+            {
+                <MudSelectItem Value="item">@item</MudSelectItem>
+            }
+        </MudSelect>
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudSelect Margin="Margin.Dense" Label="Data bits" @bind-Value="Value.DataBits" Variant="Variant.Outlined">
+            <MudSelectItem Value="@("7")" />
+            <MudSelectItem Value="@("8")" />
+        </MudSelect>
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudSelect Margin="Margin.Dense" Label="Stop bit" @bind-Value="Value.StopBit" Variant="Variant.Outlined">
+            <MudSelectItem Value="@("1")" />
+            <MudSelectItem Value="@("1.5")" />
+            <MudSelectItem Value="@("2")" />
+        </MudSelect>
+    </MudItem>
+</MudGrid>
+
+
+@code {
+
+    [Parameter] public EventCallback<ModbusSettingsVm> ValueChanged { get; set; }
+    [Parameter] public ModbusSettingsVm Value { get; set; }
+
+    Parity[] parity = Enum.GetValues(typeof(Parity)).Cast<Parity>().ToArray();
+}

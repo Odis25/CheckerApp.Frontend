@@ -1,0 +1,14 @@
+﻿
+<MudNavMenu Class="py-5">
+    <MudNavLink Class="menu-link" Href="/" Match="NavLinkMatch.All" Icon="@Icons.Filled.Home">Главная</MudNavLink>
+    <AuthorizeView Roles="Admin">
+        <MudNavLink Class="menu-link" OnClick="AddContract" Icon="@Icons.Filled.LibraryAdd">Новый договор</MudNavLink>
+    </AuthorizeView>
+    <MudNavLink Class="menu-link" Href="/contracts" Icon="@Icons.Filled.LibraryBooks">Договоры</MudNavLink>
+    <AuthorizeView Roles="Admin">
+        <Authorized>
+            <MudNavLink Class="menu-link" Href="/users" Icon="@Icons.Filled.Badge">Пользователи</MudNavLink>
+        </Authorized>
+    </AuthorizeView>
+    <MudNavLink Class="menu-link" Href="/about" Icon="@Icons.Filled.Info">О программе</MudNavLink>
+</MudNavMenu>

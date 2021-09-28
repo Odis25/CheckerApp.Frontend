@@ -1,0 +1,43 @@
+﻿
+<div class="check-section border mat-elevation-z5">
+    <h4 class="text-center text-white py-2 m-0">@Value.Hardware.HardwareType.GetDisplayName()</h4>
+    
+    <div class="p-1 pt-0">
+        <CheckSubheader Hardware="Value.Hardware" />
+    </div>
+
+    <div class="p-3">
+        @for (int i = 0; i < Value.CheckParameters.Count; i++)
+        {
+            var index = i;
+            <div class="form-group form-row">
+                <div class="col-4">
+                    <label>@Value.CheckParameters[index].Description</label>
+                </div>
+                <div class="col-2">
+                    <InputSelect class="form-control" @bind-Value="Value.CheckParameters[index].Method">
+                        <option value="-">-</option>
+                        <option value="На оборудовании">На оборудовании</option>
+                        <option value="Имитация данных">Имитация данных</option>
+                    </InputSelect>
+                </div>
+                <div class="col-1">
+                    <InputCheckbox class="form-control cb" @bind-Value="Value.CheckParameters[index].Result"></InputCheckbox>
+                </div>
+                <div class="col-2">
+                    <InputDate class="form-control" @bind-Value="Value.CheckParameters[index].Date"></InputDate>
+                </div>
+                <div class="col">
+                    <InputTextArea class="form-control" @bind-Value="Value.CheckParameters[index].Comment"></InputTextArea>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+
+    [Parameter] public HardwareCheckDto Value { get; set; }
+    [Parameter] public EventCallback<HardwareCheckDto> ValueChanged { get; set; }
+    
+}

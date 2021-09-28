@@ -1,0 +1,16 @@
+﻿::deep.link, ::deep.button {
+    display: inline-block;
+    font-weight: bold;
+    color: white !important;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+::deep.button {
+    border: 1px solid white;
+}
+
+    ::deep.link:hover, ::deep.button:hover {
+        background: rgba(255, 255, 255, 0.1) !important;
+        text-decoration: none;
+    }

@@ -1,0 +1,103 @@
+﻿<MudDialog>
+    <DialogContent>
+        <EditForm Model="Command" OnValidSubmit="Submit">
+            <FluentValidationValidator />
+
+            <MudGrid>
+                <MudItem xs="12">
+                    <MudSelect Margin="Margin.Dense" Label="Тип оборудования" @bind-Value="Command.HardwareType" Variant="Variant.Outlined">
+                        @foreach (var item in _hardwareTypes)
+                        {
+                            <MudSelectItem Value="item">@item.GetDisplayName()</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+            </MudGrid>
+
+            @switch (Command.HardwareType)
+            {
+                case HardwareType.Cabinet:
+                    <CabinetAdd @bind-Value="Command" />
+                    UpdateWidth();
+                    break;
+
+                case HardwareType.FlowComputer:
+                    <FlowComputerAdd @bind-Value="Command" />
+                    UpdateWidth();
+                    break;
+
+                case HardwareType.Flowmeter:
+                    <FlowmeterAdd @bind-Value="Command" />
+                    UpdateWidth();
+                    break;
+
+                case HardwareType.Network:
+                    <NetworkAdd @bind-Value="Command" />
+                    UpdateWidth();
+                    break;
+
+                case HardwareType.PLC:
+                    <PlcAdd @bind-Value="Command" />
+                    UpdateWidth();
+                    break;
+
+                case HardwareType.APC:
+                    <ApcAdd @bind-Value="Command" />
+                    UpdateWidth();
+                    break;
+
+                case HardwareType.Pressure:
+                    <PressureAdd @bind-Value="Command" />
+                    UpdateWidth();
+                    break;
+
+                case HardwareType.Temperature:
+                    <TemperatureAdd @bind-Value="Command" />
+                    UpdateWidth();
+                    break;
+
+                case HardwareType.DiffPressure:
+                    <PressureAdd @bind-Value="Command" />
+                    UpdateWidth();
+                    break;
+
+                case HardwareType.GasAnalyzer:
+                    <GasAnalyzerAdd @bind-Value="Command" />
+                    UpdateWidth();
+                    break;
+
+                case HardwareType.FireSensor:
+                    <FireSensorAdd @bind-Value="Command" />
+                    UpdateWidth();
+                    break;
+
+                case HardwareType.FireModule:
+                    <FireModuleAdd @bind-Value="Command" />
+                    UpdateWidth();
+                    break;
+
+                case HardwareType.InformPanel:
+                    <InformPanelAdd @bind-Value="Command" />
+                    UpdateWidth();
+                    break;
+
+                case HardwareType.Valve:
+                    <ValveAdd @bind-Value="Command" />
+                    UpdateWidth();
+                    break;
+
+                case HardwareType.ARM:
+                    <ArmAdd @bind-Value="Command" />
+                    UpdateWidth();
+                    break;
+            }
+
+            <MudButton ButtonType="ButtonType.Submit"
+                       Color="Color.Primary"
+                       StartIcon="@Icons.Filled.Save"
+                       FullWidth="true"
+                       Class="mt-5 mb-3 py-3"
+                       Variant="Variant.Filled">Сохранить</MudButton>
+        </EditForm>
+    </DialogContent>
+</MudDialog>

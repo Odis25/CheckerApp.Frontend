@@ -1,0 +1,456 @@
+﻿
+<div class="subheader">
+    @switch (Hardware.HardwareType)
+    {
+        case HardwareType.Cabinet:
+            <div class="row">
+                <div class="col">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Позиция по проекту:</td>
+                                <td>@Hardware.Position</td>
+                            </tr>
+                            <tr>
+                                <td>Заводской №:</td>
+                                <td>@Hardware.SerialNumber</td>
+                            </tr>
+                            <tr>
+                                <td>Дата завершения монтажа:</td>
+                                <td>@(((CabinetVm)Hardware).Constructed)</td>
+                            </tr>
+                            <tr>
+                                <td>Ответственный за монтаж:</td>
+                                <td>@(((CabinetVm)Hardware).ConstructedBy)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            break;
+
+        case HardwareType.FlowComputer:
+            <div class="row">
+                <div class="col-12 col-lg">
+                    <table>
+                        <tr>
+                            <td>Позиция по проекту:</td>
+                            <td>@Hardware.Position</td>
+                        </tr>
+                        <tr>
+                            <td>Заводской №:</td>
+                            <td>@Hardware.SerialNumber</td>
+                        </tr>
+                        <tr>
+                            <td>Модель:</td>
+                            <td>@(((FlowComputerVm)Hardware).DeviceModel)</td>
+                        </tr>
+                        <tr>
+                            <td>IP-адрес:</td>
+                            <td>@(((FlowComputerVm)Hardware).IP)</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-12 col-lg">
+                    <table>
+                        <tr>
+                            <td>Версия сборки:</td>
+                            <td>@(((FlowComputerVm)Hardware).AssemblyVersion)</td>
+                        </tr>
+                        <tr>
+                            <td>Контрольная сумма:</td>
+                            <td>@(((FlowComputerVm)Hardware).CRC32)</td>
+                        </tr>
+                        <tr>
+                            <td>Дата конфигурации:</td>
+                            <td>@(((FlowComputerVm)Hardware).LastConfigDate)</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            break;
+
+        case HardwareType.Flowmeter:
+            <div class="row">
+                <div class="col-12 col-lg">
+                    <table>
+                        <tr>
+                            <td>Позиция по проекту:</td>
+                            <td>@Hardware.Position</td>
+                        </tr>
+                        <tr>
+                            <td>Тип устройства:</td>
+                            <td>@(((FlowmeterVm)Hardware).DeviceType)</td>
+                        </tr>
+                        <tr>
+                            <td>Модель устройства:</td>
+                            <td>@(((FlowmeterVm)Hardware).DeviceModel)</td>
+                        </tr>
+                        <tr>
+                            <td>Заводской №:</td>
+                            <td>@Hardware.SerialNumber</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-12 col-lg">
+                    <table>
+                        <tr>
+                            <td>Диапазон:</td>
+                            <td>@(((FlowmeterVm)Hardware).MinValue)...@(((FlowmeterVm)Hardware).MaxValue) @(((FlowmeterVm)Hardware).EU)</td>
+                        </tr>
+                        <tr>
+                            <td>К-фактор:</td>
+                            <td>@(((FlowmeterVm)Hardware).Kfactor)</td>
+                        </tr>
+                        <tr>
+                            <td>Тип подключения:</td>
+                            <td>@(((FlowmeterVm)Hardware).SignalType.GetDisplayName())</td>
+                        </tr>
+                        @if (((FlowmeterVm)Hardware).SignalType == SignalType.RS485)
+                        {
+                            <tr>
+                                <td>Настройки Modbus:</td>
+                                <td>
+                                    @(((FlowmeterVm)Hardware).ModbusSettings.Address) /
+                                    @(((FlowmeterVm)Hardware).ModbusSettings.BoudRate) /
+                                    @(((FlowmeterVm)Hardware).ModbusSettings.Parity) /
+                                    @(((FlowmeterVm)Hardware).ModbusSettings.DataBits) /
+                                    @(((FlowmeterVm)Hardware).ModbusSettings.StopBit)
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+            break;
+
+        case HardwareType.Network:
+            <div class="row">
+                <div class="col-12">
+                    <table>
+                        <tr>
+                            <td>Позиция по проекту:</td>
+                            <td>@Hardware.Position</td>
+                        </tr>
+                        <tr>
+                            <td>Заводской №:</td>
+                            <td>@Hardware.SerialNumber</td>
+                        </tr>
+                        <tr>
+                            <td>Тип устройства:</td>
+                            <td>@(((NetworkHardwareVm)Hardware).DeviceType)</td>
+                        </tr>
+                        <tr>
+                            <td>Модель устройства:</td>
+                            <td>@(((NetworkHardwareVm)Hardware).DeviceModel)</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            break;
+
+        case HardwareType.PLC:
+            <div class="row">
+                <div class="col-12 col-lg">
+                    <table>
+                        <tr>
+                            <td>Позиция по проекту:</td>
+                            <td>@Hardware.Position</td>
+                        </tr>
+                        <tr>
+                            <td>Модель устройства:</td>
+                            <td>@(((PlcVm)Hardware).DeviceModel)</td>
+                        </tr>
+                        <tr>
+                            <td>Заводской №:</td>
+                            <td>@Hardware.SerialNumber</td>
+                        </tr>
+                        <tr>
+                            <td>IP-адрес:</td>
+                            <td>@(((PlcVm)Hardware).IP)</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-12 col-lg">
+                    <table>
+                        <tr>
+                            <td>Версия сборки:</td>
+                            <td>@(((PlcVm)Hardware).AssemblyVersion)</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            break;
+
+        case HardwareType.Pressure:
+        case HardwareType.Temperature:
+        case HardwareType.DiffPressure:
+        case HardwareType.GasAnalyzer:
+            <div class="row">
+                <div class="col-12 col-lg">
+                    <table>
+                        <tr>
+                            <td>Позиция по проекту:</td>
+                            <td>@Hardware.Position</td>
+                        </tr>
+                        <tr>
+                            <td>Тип устройства:</td>
+                            <td>@(((MeasurementVm)Hardware).DeviceType)</td>
+                        </tr>
+                        <tr>
+                            <td>Модель устройства:</td>
+                            <td>@(((MeasurementVm)Hardware).DeviceModel)</td>
+                        </tr>
+                        <tr>
+                            <td>Заводской №:</td>
+                            <td>@Hardware.SerialNumber</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-12 col-lg">
+                    <table>
+                        <tr>
+                            <td>Диапазон:</td>
+                            <td>@(((MeasurementVm)Hardware).MinValue)...@(((MeasurementVm)Hardware).MaxValue) @(((MeasurementVm)Hardware).EU)</td>
+                        </tr>
+                        <tr>
+                            <td>Тип подключения:</td>
+                            <td>@(((MeasurementVm)Hardware).SignalType.GetDisplayName())</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            break;
+
+        case HardwareType.APC:
+            <div class="row">
+                <div class="col-12 col-lg">
+                    <table>
+                        <tr>
+                            <td>Позиция по проекту:</td>
+                            <td>@Hardware.Position</td>
+                        </tr>
+                        <tr>
+                            <td>Тип устройства:</td>
+                            <td>@(((ApcVm)Hardware).DeviceType)</td>
+                        </tr>
+                        <tr>
+                            <td>Модель устройства:</td>
+                            <td>@(((ApcVm)Hardware).DeviceModel)</td>
+                        </tr>
+                        <tr>
+                            <td>Заводской №:</td>
+                            <td>@Hardware.SerialNumber</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            break;
+
+        case HardwareType.FireSensor:
+            <div class="row">
+                <div class="col-12 col-lg">
+                    <table>
+                        <tr>
+                            <td>Позиция по проекту:</td>
+                            <td>@Hardware.Position</td>
+                        </tr>
+                        <tr>
+                            <td>Тип устройства:</td>
+                            <td>@(((FireSensorVm)Hardware).DeviceType)</td>
+                        </tr>
+                        <tr>
+                            <td>Модель устройства:</td>
+                            <td>@(((FireSensorVm)Hardware).DeviceModel)</td>
+                        </tr>
+                        <tr>
+                            <td>Заводской №:</td>
+                            <td>@Hardware.SerialNumber</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            break;
+
+        case HardwareType.FireModule:
+            <div class="row">
+                <div class="col-12 col-lg">
+                    <table>
+                        <tr>
+                            <td>Позиция по проекту:</td>
+                            <td>@Hardware.Position</td>
+                        </tr>
+                        <tr>
+                            <td>Тип устройства:</td>
+                            <td>@(((FireModuleVm)Hardware).DeviceType)</td>
+                        </tr>
+                        <tr>
+                            <td>Заводской №:</td>
+                            <td>@Hardware.SerialNumber</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            break;
+
+        case HardwareType.InformPanel:
+            <div class="row">
+                <div class="col-12 col-lg">
+                    <table>
+                        <tr>
+                            <td>Позиция по проекту:</td>
+                            <td>@Hardware.Position</td>
+                        </tr>
+                        <tr>
+                            <td>Тип устройства:</td>
+                            <td>@(((InformPanelVm)Hardware).DeviceType)</td>
+                        </tr>
+                        <tr>
+                            <td>Модель устройства:</td>
+                            <td>@(((InformPanelVm)Hardware).DeviceModel)</td>
+                        </tr>
+                        <tr>
+                            <td>Заводской №:</td>
+                            <td>@Hardware.SerialNumber</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-12 col-lg">
+                    <table>
+                        <tr>
+                            <td>Тип подключения:</td>
+                            <td>@(((InformPanelVm)Hardware).PanelType.GetDisplayName())</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            break;
+
+        case HardwareType.Valve:
+            <div class="row">
+                <div class="col-12 col-lg">
+                    <table>
+                        <tr>
+                            <td>Позиция по проекту:</td>
+                            <td>@Hardware.Position</td>
+                        </tr>
+                        <tr>
+                            <td>Тип устройства:</td>
+                            <td>@(((ValveVm)Hardware).DeviceType)</td>
+                        </tr>
+                        <tr>
+                            <td>Модель устройства:</td>
+                            <td>@(((ValveVm)Hardware).DeviceModel)</td>
+                        </tr>
+                        <tr>
+                            <td>Заводской №:</td>
+                            <td>@Hardware.SerialNumber</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-12 col-lg">
+                    <table>
+                        <tr>
+                            <td>Тип подключения:</td>
+                            <td>@(((ValveVm)Hardware).SignalType.GetDisplayName())</td>
+                        </tr>
+                        @if (((ValveVm)Hardware).SignalType == SignalType.RS485)
+                        {
+                            <tr>
+                                <td>Настройки Modbus:</td>
+                                <td>
+                                    @(((ValveVm)Hardware).ModbusSettings.Address)/
+                                    @(((ValveVm)Hardware).ModbusSettings.BoudRate)/
+                                    @(((ValveVm)Hardware).ModbusSettings.Parity)/
+                                    @(((ValveVm)Hardware).ModbusSettings.DataBits)/
+                                    @(((ValveVm)Hardware).ModbusSettings.StopBit)
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+            break;
+
+        case HardwareType.ARM:
+            <div class="row">
+                <div class="col-12 col-lg">
+                    <table>
+                        <tr>
+                            <td>Модель станции:</td>
+                            <td>@(((ArmVm)Hardware).Name)</td>
+                        </tr>
+                        <tr>
+                            <td>Монитор:</td>
+                            <td>@(((ArmVm)Hardware).Monitor)</td>
+                        </tr>
+                        <tr>
+                            <td>Клавиатура:</td>
+                            <td>@(((ArmVm)Hardware).Keyboard)</td>
+                        </tr>
+                        <tr>
+                            <td>Мышь:</td>
+                            <td>@(((ArmVm)Hardware).Mouse)</td>
+                        </tr>
+                        <tr>
+                            <td>Операционная система:</td>
+                            <td>@(((ArmVm)Hardware).OS)</td>
+                        </tr>
+                        <tr>
+                            <td>Позиция по проекту:</td>
+                            <td>@Hardware.Position</td>
+                        </tr>
+                        <tr>
+                            <td>RAID-массив:</td>
+                            <td>@(((ArmVm)Hardware).HasRAID ? "Есть": "Нет")</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-12 col-lg">
+                    <table>
+                        <tr>
+                            <td>Зав. № станции:</td>
+                            <td>@(((ArmVm)Hardware).SerialNumber)</td>
+                        </tr>
+                        <tr>
+                            <td>Зав. № монитора:</td>
+                            <td>@(((ArmVm)Hardware).MonitorSN)</td>
+                        </tr>
+                        <tr>
+                            <td>Зав. № клавиатуры:</td>
+                            <td>@(((ArmVm)Hardware).KeyboardSN)</td>
+                        </tr>
+                        <tr>
+                            <td>Зав. № мыши:</td>
+                            <td>@(((ArmVm)Hardware).MouseSN)</td>
+                        </tr>
+                        <tr>
+                            <td>Ключ продукта ОС:</td>
+                            <td>@(((ArmVm)Hardware).ProductKeyOS)</td>
+                        </tr>
+                    </table>
+                </div>
+                @if (((ArmVm)Hardware).NetworkAdapters.Any())
+                {
+                    var adapters = ((ArmVm)Hardware).NetworkAdapters;
+                    <div class="col-12 col-lg">
+                        <table>
+                            @for (int i = 0; i < adapters.Count; i++)
+                            {
+                                <tr>
+                                    <td>Сетевая карта @(i+1):</td>
+                                    <td>@adapters[i].IP (@adapters[i].MacAddress)</td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                }
+            </div>
+            break;
+    }
+</div>
+
+@code {
+
+    [Parameter] public HardwareVm Hardware { get; set; }
+}

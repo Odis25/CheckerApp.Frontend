@@ -1,0 +1,485 @@
+﻿@page "/hardware/{id}/detail"
+
+@if (Hardware == null)
+{
+    <div class="spinner"></div>
+}
+else
+{
+    <div class="alert section-header mat-elevation-z5">
+        <h4>@Hardware.HardwareType.GetDisplayName()</h4>
+        <hr />
+        <div class="row">
+            <div class="col-sm-6">
+                <table>
+                    <tbody>
+                        @switch (Hardware.HardwareType)
+                        {
+                            case HardwareType.Cabinet:
+                                {
+                                    var Vm = (CabinetVm)Hardware;
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Позиция по проекту</td>
+                                        <td><span class="">@Vm.Position</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Серийный номер</td>
+                                        <td><span class="">@Vm.SerialNumber</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Ответственный за монтаж</td>
+                                        <td><span class="">@Vm.ConstructedBy</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Дата завершения монтажа</td>
+                                        <td><span class="">@Vm.Constructed.ToShortDateString()</span></td>
+                                    </tr>
+                                }
+                                break;
+
+                            case HardwareType.FlowComputer:
+                                {
+                                    var Vm = (FlowComputerVm)Hardware;
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Позиция по проекту</td>
+                                        <td><span class="">@Vm.Position</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Серийный номер</td>
+                                        <td><span class="">@Vm.SerialNumber</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Модель контроллера</td>
+                                        <td><span class="">@Vm.DeviceModel</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">IP-адрес</td>
+                                        <td><span class="">@Vm.IP</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Версия сборки</td>
+                                        <td><span class="">@Vm.AssemblyVersion</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Контрольная сумма</td>
+                                        <td><span class="">@Vm.CRC32</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Дата конфигурации</td>
+                                        <td><span class="">@Vm.LastConfigDate</span></td>
+                                    </tr>
+                                }
+                                break;
+
+                            case HardwareType.Flowmeter:
+                                {
+                                    var Vm = (FlowmeterVm)Hardware;
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Позиция по проекту</td>
+                                        <td><span class="">@Vm.Position</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Серийный номер</td>
+                                        <td><span class="">@Vm.SerialNumber</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Тип прибора</td>
+                                        <td><span class="">@Vm.DeviceType</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Модель прибора</td>
+                                        <td><span class="">@Vm.DeviceModel</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Шкала измерений</td>
+                                        <td><span class="">@Vm.MinValue ... @Vm.MaxValue @Vm.EU</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">К-фактор</td>
+                                        <td><span class="">@Vm.Kfactor имп/м3</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Тип подключения</td>
+                                        <td><span class="">@Vm.SignalType.GetDisplayName()</span></td>
+                                    </tr>
+                                }
+                                break;
+
+                            case HardwareType.Network:
+                                {
+                                    var Vm = (NetworkHardwareVm)Hardware;
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Позиция по проекту</td>
+                                        <td><span class="">@Vm.Position</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Серийный номер</td>
+                                        <td><span class="">@Vm.SerialNumber</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Тип прибора</td>
+                                        <td><span class="">@Vm.DeviceType</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Модель прибора</td>
+                                        <td><span class="">@Vm.DeviceModel</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Маска подсети</td>
+                                        <td><span class="">@Vm.Mask</span></td>
+                                    </tr>
+                                }
+                                break;
+
+                            case HardwareType.PLC:
+                                {
+                                    var Vm = (PlcVm)Hardware;
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Позиция по проекту</td>
+                                        <td><span class="">@Vm.Position</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Серийный номер</td>
+                                        <td><span class="">@Vm.SerialNumber</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Модель контроллера</td>
+                                        <td><span class="">@Vm.DeviceModel</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">IP-Адрес</td>
+                                        <td><span class="">@Vm.IP</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Версия сборки</td>
+                                        <td><span class="">@Vm.AssemblyVersion</span></td>
+                                    </tr>
+                                }
+                                break;
+
+                            case HardwareType.DiffPressure:
+                            case HardwareType.Pressure:
+                            case HardwareType.Temperature:
+                            case HardwareType.GasAnalyzer:
+                                {
+                                    var Vm = (MeasurementVm)Hardware;
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Позиция по проекту</td>
+                                        <td><span class="">@Vm.Position</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Серийный номер</td>
+                                        <td><span class="">@Vm.SerialNumber</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Тип прибора</td>
+                                        <td><span class="">@Vm.DeviceType</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Модель прибора</td>
+                                        <td><span class="">@Vm.DeviceModel</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Шкала измерений</td>
+                                        <td><span class="">@Vm.MinValue ... @Vm.MaxValue @Vm.EU</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Тип подключения</td>
+                                        <td><span class="">@Vm.SignalType.GetDisplayName()</span></td>
+                                    </tr>
+                                }
+                                break;
+
+                            case HardwareType.FireSensor:
+                                {
+                                    var Vm = (FireSensorVm)Hardware;
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Позиция по проекту</td>
+                                        <td><span class="">@Vm.Position</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Серийный номер</td>
+                                        <td><span class="">@Vm.SerialNumber</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Тип прибора</td>
+                                        <td><span class="">@Vm.DeviceType</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Модель прибора</td>
+                                        <td><span class="">@Vm.DeviceModel</span></td>
+                                    </tr>
+                                }
+                                break;
+
+                            case HardwareType.FireModule:
+                                {
+                                    var Vm = (FireModuleVm)Hardware;
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Позиция по проекту</td>
+                                        <td><span class="">@Vm.Position</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Серийный номер</td>
+                                        <td><span class="">@Vm.SerialNumber</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Тип прибора</td>
+                                        <td><span class="">@Vm.DeviceType</span></td>
+                                    </tr>
+                                }
+                                break;
+
+                            case HardwareType.APC:
+                                {
+                                    var Vm = (ApcVm)Hardware;
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Позиция по проекту</td>
+                                        <td><span class="">@Vm.Position</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Серийный номер</td>
+                                        <td><span class="">@Vm.SerialNumber</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Тип прибора</td>
+                                        <td><span class="">@Vm.DeviceType</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Модель прибора</td>
+                                        <td><span class="">@Vm.DeviceModel</span></td>
+                                    </tr>
+                                }
+                                break;
+
+                            case HardwareType.InformPanel:
+                                {
+                                    var Vm = (InformPanelVm)Hardware;
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Позиция по проекту</td>
+                                        <td><span class="">@Vm.Position</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Серийный номер</td>
+                                        <td><span class="">@Vm.SerialNumber</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Тип прибора</td>
+                                        <td><span class="">@Vm.DeviceType</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Модель прибора</td>
+                                        <td><span class="">@Vm.DeviceModel</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Тип информационного табло</td>
+                                        <td><span class="">@Vm.PanelType.GetDisplayName()</span></td>
+                                    </tr>
+                                }
+                                break;
+
+                            case HardwareType.Valve:
+                                {
+                                    var Vm = (ValveVm)Hardware;
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Позиция по проекту</td>
+                                        <td><span class="">@Vm.Position</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Серийный номер</td>
+                                        <td><span class="">@Vm.SerialNumber</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Тип крана</td>
+                                        <td><span class="">@Vm.DeviceType</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Модель крана</td>
+                                        <td><span class="">@Vm.DeviceModel</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Тип подключения</td>
+                                        <td><span class="">@Vm.SignalType.GetDisplayName()</span></td>
+                                    </tr>
+                                }
+                                break;
+                            case HardwareType.ARM:
+                                {
+                                    var Vm = (ArmVm)Hardware;
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Позиция по проекту</td>
+                                        <td><span class="">@Vm.Position</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Серийный номер</td>
+                                        <td><span class="">@Vm.SerialNumber</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Модель монитора</td>
+                                        <td><span class="">@Vm.Monitor</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Серийный номер монитора</td>
+                                        <td><span class="">@Vm.MonitorSN</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Модель клавиатуры</td>
+                                        <td><span class="">@Vm.Keyboard</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Серийный номер клавиатуры</td>
+                                        <td><span class="">@Vm.KeyboardSN</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Модель мыши</td>
+                                        <td><span class="">@Vm.Mouse</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Серийный номер мыши</td>
+                                        <td><span class="">@Vm.MouseSN</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Операционная система</td>
+                                        <td><span class="">@Vm.OS</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="pr-4 py-2 font-weight-bold">Ключ продукта</td>
+                                        <td><span class="">@Vm.ProductKeyOS</span></td>
+                                    </tr>
+                                }
+                                break;
+                        }
+                        <tr>
+                            <td colspan="2" class="py-2"><div class="border-bottom"></div></td>
+                        </tr>
+                        <tr>
+                            <td class="pr-4 py-2 font-weight-bold">Добавлен</td>
+                            <td>@Hardware.Created.ToString("dd/MM/yyyy - HH:mm:ss") (@Hardware.CreatedBy) </td>
+                        </tr>
+                        <tr>
+                            <td class="pr-4 py-2 font-weight-bold">Изменен</td>
+                            <td>@(Hardware.LastModified != null ? $"{Hardware.LastModified?.ToString("dd/MM/yyyy - HH:mm:ss")} ({Hardware.LastModifiedBy})" : "----")</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            @if (Hardware.HardwareType == HardwareType.Network)
+            {
+                var vm = (NetworkHardwareVm)Hardware;
+                @if (vm.NetworkDevices.Any())
+                {
+                    <div class="col">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td colspan="2" class="font-weight-bold border-bottom py-2">Подключенное оборудование:</td>
+                                </tr>
+                                @foreach (var item in vm.NetworkDevices)
+                                {
+                                    <tr>
+                                        <td class="pr-4 py-2">@item.Name</td>
+                                        <td>@item.IP (@item.MacAddress)</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            }
+            else if (Hardware.HardwareType == HardwareType.ARM)
+            {
+                var vm = (ArmVm)Hardware;
+                @if (vm.NetworkAdapters.Any())
+                {
+                    <div class="col">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td colspan="2" class="font-weight-bold border-bottom py-2">Сетевые адаптеры:</td>
+                                </tr>
+                                @foreach (var item in vm.NetworkAdapters)
+                                {
+                                    <tr>
+                                        <td class="py-2">@item.IP (@item.MacAddress)</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            }
+            else if (Hardware.HardwareType == HardwareType.Flowmeter)
+            {
+                var vm = (FlowmeterVm)Hardware;
+                if (vm.SignalType == SignalType.RS485)
+                {
+                    <div class="col">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td colspan="2" class="font-weight-bold border-bottom py-2">Настройки Modbus:</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-weight-bold py-2 pr-4">Адрес устройства</td>
+                                    <td>@vm.ModbusSettings.Address</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-weight-bold py-2 pr-4">Baud Rate</td>
+                                    <td>@vm.ModbusSettings.BoudRate</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-weight-bold py-2 pr-4">Parity</td>
+                                    <td>@vm.ModbusSettings.Parity</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-weight-bold py-2 pr-4">Data Bits</td>
+                                    <td>@vm.ModbusSettings.DataBits</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-weight-bold py-2 pr-4">Stop Bit</td>
+                                    <td>@vm.ModbusSettings.StopBit</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            }
+            else if (Hardware.HardwareType == HardwareType.Valve)
+            {
+                var vm = (ValveVm)Hardware;
+                if (vm.SignalType == SignalType.RS485)
+                {
+                    <div class="col">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td colspan="2" class="font-weight-bold border-bottom py-2">Настройки Modbus:</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-weight-bold py-2 pr-4">Адрес устройства</td>
+                                    <td>@vm.ModbusSettings.Address</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-weight-bold py-2 pr-4">Baud Rate</td>
+                                    <td>@vm.ModbusSettings.BoudRate</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-weight-bold py-2 pr-4">Parity</td>
+                                    <td>@vm.ModbusSettings.Parity</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-weight-bold py-2 pr-4">Data Bits</td>
+                                    <td>@vm.ModbusSettings.DataBits</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-weight-bold py-2 pr-4">Stop Bit</td>
+                                    <td>@vm.ModbusSettings.StopBit</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+}

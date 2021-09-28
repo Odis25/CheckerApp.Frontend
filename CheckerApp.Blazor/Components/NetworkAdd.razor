@@ -1,0 +1,41 @@
+﻿@using CheckerApp.Blazor.Models.Commands
+
+<MudGrid>
+    <MudItem xs="4">
+        <MudGrid>
+            <MudItem xs="12">
+                <MudTextField Margin="Margin.Dense" Label="Позиция по проекту" @bind-Value="Value.Position" Variant="Variant.Outlined" For="()=> Value.Position" />
+            </MudItem>
+        </MudGrid>
+        <MudGrid>
+            <MudItem xs="12">
+                <MudTextField Margin="Margin.Dense" Label="Тип прибора" @bind-Value="Value.DeviceType" Variant="Variant.Outlined" For="()=> Value.DeviceType" />
+            </MudItem>
+        </MudGrid>
+        <MudGrid>
+            <MudItem xs="12">
+                <MudTextField Margin="Margin.Dense" Label="Модель прибора" @bind-Value="Value.DeviceModel" Variant="Variant.Outlined" For="()=> Value.DeviceModel" />
+            </MudItem>
+        </MudGrid>
+        <MudGrid>
+            <MudItem xs="12">
+                <MudTextField Margin="Margin.Dense" Label="Серийный номер" @bind-Value="Value.SerialNumber" Variant="Variant.Outlined" For="()=> Value.SerialNumber" />
+            </MudItem>
+        </MudGrid>
+        <MudGrid>
+            <MudItem xs="12">
+                <MudTextField Margin="Margin.Dense" Label="Маска подсети" @bind-Value="Value.Mask" Variant="Variant.Outlined" For="()=> Value.Mask" />
+            </MudItem>
+        </MudGrid>
+    </MudItem>
+    <MudItem xs="8">
+        <NetworkDeviceTable @bind-Value="Value.NetworkDevices" />
+    </MudItem>
+</MudGrid>
+
+
+@code {
+
+    [Parameter] public CreateHardwareCommandVm Value { get; set; }
+    [Parameter] public EventCallback<CreateHardwareCommandVm> ValueChanged { get; set; }
+}

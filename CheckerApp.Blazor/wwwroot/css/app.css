@@ -1,0 +1,173 @@
+﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+
+html, body {
+    /*font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
+    font-family: 'Roboto', Helvetica, Arial, sans-serif;
+    font-size: 16px;
+}
+
+/*---- Скроллер ----*/
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #d4d4d4;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #808080;
+    border: 2px solid #d4d4d4;
+    border-radius: 8px;
+}
+
+/*--- максимальная высота экрана ---*/
+.vh-100 {
+    height: 100vh !important;
+}
+.vh-80 {
+    height: 80vh !important;
+}
+
+/*--- экран начальной загрузки ---*/
+.loading {
+    color: Highlight;
+    padding: 1.5rem;
+    font-family: Roboto;
+    font-size: 2rem;
+}
+
+.spinner {
+    border: 6px solid silver;
+    border-top: 6px solid #337AB7;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 700ms linear infinite;
+    top: 40%;
+    left: 55%;
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+.content {
+    padding-top: 1.1rem;
+}
+
+.section-header {
+    background-color: #fafbfd;
+    color: #000;
+}
+
+
+
+/*---- Таблица ----*/
+/*.mud-table-toolbar {
+    background-color: #00356a !important;
+    color: #fff;
+}*/
+
+.table-container {
+    overflow: auto;
+    border-radius: 5px;
+    background: #fafbfd;
+}
+
+.app-table {
+    border-radius: 5px;
+}
+
+    .app-table thead th {
+        background-color: #00356a;
+        border-color: #454d55;
+        color: white;
+        white-space: nowrap;
+        position: sticky;
+        top: 0;
+        z-index: 90;
+        border-top: none;
+    }
+
+    .app-table tbody tr {
+        cursor: pointer;
+    }
+
+        .app-table tbody tr th:first-child, .app-table tbody tr td:first-child {
+            padding-left: 1rem;
+        }
+
+        .app-table tbody tr th:first-child {
+            border-radius: 5px 0 0 0;
+        }
+
+        .app-table tbody tr th:last-child {
+            border-radius: 0 5px 0 0;
+        }
+
+    .app-table .btn {
+        border-radius: 50px;
+    }
+
+
+/*---- Модальные окна ----*/
+.blazored-modal {
+    border: 1px solid #3286aa;
+    padding: 0;
+    border-radius: 5px;
+}
+
+    .blazored-modal .blazored-modal-header {
+        padding: 0.7rem 1.5rem;
+        background-color: #00356a;
+        border-radius: 5px;
+        color: white;
+    }
+
+        .blazored-modal .blazored-modal-header .blazored-modal-title {
+            font-family: Roboto;
+        }
+
+        .blazored-modal .blazored-modal-header .blazored-modal-close {
+            color: white;
+        }
+
+    .blazored-modal .blazored-modal-content {
+        padding: 1.5rem;
+    }
+
+/*---- Прочее ----*/
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
+    }
+
+
+/* --- Фикс стилей валидации МатБлейзора*/
+
+.invalid .mdc-notched-outline > .mdc-notched-outline__leading,
+.invalid .mdc-notched-outline > .mdc-notched-outline__notch,
+.invalid .mdc-notched-outline > .mdc-notched-outline__trailing {
+    border-color: red !important;
+}

@@ -1,0 +1,84 @@
+﻿@using CheckerApp.Blazor.Models.Commands
+
+@if (Value.SignalType == SignalType.RS485)
+{
+<MudGrid>
+    <MudItem xs="6">
+        <MudGrid>
+            <MudItem xs="12">
+                <MudTextField Margin="Margin.Dense" Label="Позиция по проекту" @bind-Value="Value.Position" Variant="Variant.Outlined" For="()=> Value.Position" />
+            </MudItem>
+        </MudGrid>
+        <MudGrid>
+            <MudItem xs="12">
+                <MudTextField Margin="Margin.Dense" Label="Серийный номер" @bind-Value="Value.SerialNumber" Variant="Variant.Outlined" For="()=> Value.SerialNumber" />
+            </MudItem>
+        </MudGrid>
+        <MudGrid>
+            <MudItem xs="12">
+                <MudTextField Margin="Margin.Dense" Label="Тип крана" @bind-Value="Value.DeviceType" Variant="Variant.Outlined" For="()=> Value.DeviceType" />
+            </MudItem>
+        </MudGrid>
+        <MudGrid>
+            <MudItem xs="12">
+                <MudTextField Margin="Margin.Dense" Label="Модель крана" @bind-Value="Value.DeviceModel" Variant="Variant.Outlined" For="()=> Value.DeviceModel" />
+            </MudItem>
+        </MudGrid>
+        <MudGrid>
+            <MudItem xs="12">
+                <MudSelect Margin="Margin.Dense" @bind-Value="Value.SignalType" Label="Способ подключения" Variant="Variant.Outlined">
+                    @foreach (var item in signals)
+                        {
+                        <MudSelectItem Value="item">@item.GetDisplayName()</MudSelectItem>
+                        }
+                </MudSelect>
+            </MudItem>
+        </MudGrid>
+    </MudItem>
+    <MudItem xs="6">
+        <ModbusSettings @bind-Value="Value.ModbusSettings"/>
+    </MudItem>
+</MudGrid>
+}
+else
+{
+    <MudGrid>
+        <MudItem xs="12">
+            <MudTextField Margin="Margin.Dense" Label="Позиция по проекту" @bind-Value="Value.Position" Variant="Variant.Outlined" For="()=> Value.Position" />
+        </MudItem>
+    </MudGrid>
+    <MudGrid>
+        <MudItem xs="12">
+            <MudTextField Margin="Margin.Dense" Label="Серийный номер" @bind-Value="Value.SerialNumber" Variant="Variant.Outlined" For="()=> Value.SerialNumber" />
+        </MudItem>
+    </MudGrid>
+    <MudGrid>
+        <MudItem xs="12">
+            <MudTextField Margin="Margin.Dense" Label="Тип крана" @bind-Value="Value.DeviceType" Variant="Variant.Outlined" For="()=> Value.DeviceType" />
+        </MudItem>
+    </MudGrid>
+    <MudGrid>
+        <MudItem xs="12">
+            <MudTextField Margin="Margin.Dense" Label="Модель крана" @bind-Value="Value.DeviceModel" Variant="Variant.Outlined" For="()=> Value.DeviceModel" />
+        </MudItem>
+    </MudGrid>
+    <MudGrid>
+        <MudItem xs="12">
+            <MudSelect Margin="Margin.Dense" @bind-Value="Value.SignalType" Label="Способ подключения" Variant="Variant.Outlined">
+                @foreach (var item in signals)
+                    {
+                    <MudSelectItem Value="item">@item.GetDisplayName()</MudSelectItem>
+                    }
+            </MudSelect>
+        </MudItem>
+    </MudGrid>
+}
+
+
+@code {
+
+    [Parameter] public CreateHardwareCommandVm Value { get; set; }
+    [Parameter] public EventCallback<CreateHardwareCommandVm> ValueChanged { get; set; }
+
+    private SignalType[] signals = Enum.GetValues(typeof(SignalType)).Cast<SignalType>().ToArray();
+}

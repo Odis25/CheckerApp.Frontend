@@ -1,0 +1,10 @@
+﻿
+::deep.red-color {
+    color: red;
+    font-weight: bold;
+}
+
+::deep.green-color {
+    color: green;
+    font-weight: bold;
+}

@@ -1,0 +1,63 @@
+﻿@using CheckerApp.Blazor.Models.Commands
+
+<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Позиция по проекту" @bind-Value="Value.Position" Variant="Variant.Outlined" For="()=> Value.Position" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Серийный номер" @bind-Value="Value.SerialNumber" Variant="Variant.Outlined" For="()=> Value.SerialNumber" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Тип прибора" @bind-Value="Value.DeviceType" Variant="Variant.Outlined" For="()=> Value.DeviceType" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Модель прибора" @bind-Value="Value.DeviceModel" Variant="Variant.Outlined" For="()=> Value.DeviceModel" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="4">
+        <MudNumericField Margin="Margin.Dense" Label="Низ шкалы" @bind-Value="Value.MinValue"
+                         Format="F1" Variant="Variant.Outlined" For="()=> Value.MinValue" />
+    </MudItem>
+    <MudItem xs="4">
+        <MudNumericField Margin="Margin.Dense" Label="Верх шкалы" @bind-Value="Value.MaxValue"
+                         Format="F1" Variant="Variant.Outlined" For="()=> Value.MaxValue" />
+    </MudItem>
+    <MudItem xs="4">
+        <MudSelect Margin="Margin.Dense" Label="Единицы измерения" @bind-Value="Value.EU" Variant="Variant.Outlined">
+            <MudSelectItem Value="@("%")">%</MudSelectItem>
+        </MudSelect>
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudSelect Margin="Margin.Dense" @bind-Value="Value.SignalType" Label="Способ подключения" Variant="Variant.Outlined">
+            @foreach (var item in signals)
+            {
+                <MudSelectItem Value="item">@item.GetDisplayName()</MudSelectItem>
+            }
+        </MudSelect>
+    </MudItem>
+</MudGrid>
+
+
+@code {
+
+    [Parameter] public CreateHardwareCommandVm Value { get; set; }
+    [Parameter] public EventCallback<CreateHardwareCommandVm> ValueChanged { get; set; }
+
+    private SignalType[] signals = Enum.GetValues(typeof(SignalType)).Cast<SignalType>().ToArray();
+
+    protected override void OnInitialized()
+    {
+        Value.EU = "%";
+    }
+
+
+}

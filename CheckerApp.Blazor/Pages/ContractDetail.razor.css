@@ -1,0 +1,47 @@
+﻿.contract-info-panel {
+    max-height: 231px;
+    overflow-y: auto;
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.175);
+    margin-bottom: 0;
+}
+
+    .contract-info-panel table tbody tr td:first-child {
+        width: 16rem;
+    }
+
+.control-panel .btn {
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+    margin: 0.3rem 0 0.3rem 0;
+    min-width: 13rem;
+    text-align: left;
+    padding-left: 1rem;
+    cursor: pointer;
+}
+
+
+.hardware-table {
+    height: 51vh;   
+}
+.hardware-table th{
+    cursor: pointer;
+}
+
+::deep.protocol {
+    font-weight: bold;
+    color: green;
+}
+
+::deep.no-protocol {
+    font-weight: bold;
+    color: red;
+}
+
+.btn-header {
+    background: #00356a;
+    color: #fff;
+}
+
+    .btn-header:hover {
+        background: #178fd6;
+    }

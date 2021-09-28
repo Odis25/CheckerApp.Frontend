@@ -1,0 +1,17 @@
+﻿
+<MudDialog>
+    <DialogContent>
+        <EditForm Model="@_contract" OnValidSubmit="Submit">
+            <FluentValidationValidator />
+            <MudTextField Class="mt-3" Margin="Margin.Dense" @bind-Value="_contract.Name" Label="Название договора" Variant="Variant.Outlined" For="(()=>_contract.Name)" />
+            <MudTextField Class="mt-3" Margin="Margin.Dense" @bind-Value="_contract.ContractNumber" Label="Номер договора" Variant="Variant.Outlined" For="(()=>_contract.ContractNumber)" />
+            <MudTextField Class="mt-3" Margin="Margin.Dense" @bind-Value="_contract.DomesticNumber" Label="Внутренний номер договора" Variant="Variant.Outlined" For="(()=>_contract.DomesticNumber)" />
+            <MudTextField Class="mt-3" Margin="Margin.Dense" @bind-Value="_contract.ProjectNumber" Label="Внутренний номер проекта" Variant="Variant.Outlined" For="(()=>_contract.ProjectNumber)" />
+
+            <MudButton ButtonType="ButtonType.Submit" Color="Color.Primary"
+                       StartIcon="@Icons.Filled.Save"
+                       FullWidth="true"
+                       Class="mt-5 mb-3 py-3" Variant="Variant.Filled">Сохранить</MudButton>
+        </EditForm>
+    </DialogContent>
+</MudDialog>

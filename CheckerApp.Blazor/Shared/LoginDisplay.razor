@@ -1,0 +1,11 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+
+<AuthorizeView>
+    <Authorized>
+        <a class="mr-2 link" href="/account"><span class="oi oi-person mr-2"></span> @context.User.FindFirst("family_name").Value @context.User.FindFirst("given_name").Value</a>
+        <button class="button" @onclick="BeginSignOut"><span class="oi oi-account-logout mr-2"></span>Выход</button>
+    </Authorized>
+    <NotAuthorized>
+        <button class="button" @onclick="BeginSignIn"><span class="oi oi-account-login mr-2"></span> Вход</button>
+    </NotAuthorized>
+</AuthorizeView>

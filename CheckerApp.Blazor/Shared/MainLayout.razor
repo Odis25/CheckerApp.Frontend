@@ -1,0 +1,42 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider Theme="MyCustomTheme" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar Elevation="2">
+        <a class="logo ml-3">
+            <span class="logo-left">Checker</span><span class="logo-right">App</span>
+        </a>
+        <MudSpacer />
+        <LoginDisplay />
+    </MudAppBar>
+    <MudDrawer Open="true" ClipMode="DrawerClipMode.Always" Elevation="4">
+        <NavMenu />
+    </MudDrawer>
+    <MudMainContent>
+        <MudContainer Fixed="true">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+
+@code{
+
+    MudTheme MyCustomTheme = new MudTheme()
+    {
+        Palette = new Palette()
+        {
+            Primary = Colors.Blue.Default,
+            Secondary = Colors.Blue.Accent4,
+            AppbarBackground = "#00356a",
+            DrawerBackground = "rgba(0,53,106,0.89)",
+            DrawerText = "#FFF",
+            DrawerIcon = "#FFF",
+            //TextSecondary = "#FFF",
+            Background = "#dce9ef"
+        }
+    };
+
+}

@@ -1,0 +1,57 @@
+﻿@page "/contracts"
+
+@if (ContractsList == null)
+{
+    <MudGrid>
+        <MudItem xs="12" Class="d-flex justify-center align-center vh-80">
+            <div class="spinner"></div>
+        </MudItem>
+    </MudGrid>
+}
+else
+{
+    <MudGrid>
+        <MudItem xs="12">
+            <MudTable Elevation="2" T="ContractDto" OnRowClick="OpenContractDetails"
+                      Class="mt-4" Items="@ContractsList.Contracts" Hover="true" Striped="true"
+                      Filter="((element) => FilterFunc(element))" FixedHeader="true" Height="86vh">
+                <ToolBarContent>
+                    <MudText Class="pl-3" Typo="Typo.h5">Список договоров</MudText>
+                    <MudSpacer />
+                    <MudTextField @bind-Value="searchString" Placeholder="Поиск..."
+                                  Adornment="Adornment.Start"
+                                  AdornmentIcon="@Icons.Material.Filled.Search"
+                                  IconSize="Size.Medium"
+                                  Class="mt-0 pr-3"></MudTextField>
+                </ToolBarContent>
+                <HeaderContent>
+                    <MudTh><MudTableSortLabel SortBy="new Func<ContractDto, object>(x => x.HasProtocol)"><b>Заводские испытания</b></MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<ContractDto, object>(x => x.LastChanges)"><b>Дата последних изменений</b></MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<ContractDto, object>(x => x.ContractNumber)"><b>Номер договора</b></MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<ContractDto, object>(x => x.DomesticNumber)"><b>Внутренний номер договора</b></MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<ContractDto, object>(x => x.ProjectNumber)"><b>Номер проекта</b></MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<ContractDto, object>(x => x.Name)"><b>Название</b></MudTableSortLabel></MudTh>
+                    <MudTh></MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Заводские испытания"><span class="@(context.HasProtocol ? "green-color" : "red-color")">@(context.HasProtocol ? "Завершены" : "Не завершены")</span></MudTd>
+                    <MudTd DataLabel="Дата последних изменений">@context.LastChanges.ToShortDateString()</MudTd>
+                    <MudTd DataLabel="Номер договора">@context.ContractNumber</MudTd>
+                    <MudTd DataLabel="Внутренний номер договора">@context.DomesticNumber</MudTd>
+                    <MudTd DataLabel="Номер проекта">@context.ProjectNumber</MudTd>
+                    <MudTd DataLabel="Название">@context.Name</MudTd>
+                    <AuthorizeView Context="state" Roles="Admin, SuperUser">
+                        <MudTd>
+                            <MudTooltip Text="Редактировать">
+                                <MudIconButton Class="ma-2" Icon="@Icons.Filled.Edit" Size="Size.Small" OnClick="() => EditContract(context.Id)" />
+                            </MudTooltip>
+                            <MudTooltip Text="Удалить">
+                                <MudIconButton Class="ma-2" Icon="@Icons.Filled.Delete" Size="Size.Small" OnClick="() => DeleteContract(context.Id)" />
+                            </MudTooltip>
+                        </MudTd>
+                    </AuthorizeView>
+                </RowTemplate>
+            </MudTable>
+        </MudItem>
+    </MudGrid>
+}

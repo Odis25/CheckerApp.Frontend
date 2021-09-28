@@ -1,0 +1,41 @@
+﻿@using CheckerApp.Blazor.Models.Commands
+
+<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Позиция по проекту" @bind-Value="Value.Position" Variant="Variant.Outlined" For="()=> Value.Position" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Серийный номер" @bind-Value="Value.SerialNumber" Variant="Variant.Outlined" For="()=> Value.SerialNumber" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Тип прибора" @bind-Value="Value.DeviceType" Variant="Variant.Outlined" For="()=> Value.DeviceType" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Модель прибора" @bind-Value="Value.DeviceModel" Variant="Variant.Outlined" For="()=> Value.DeviceModel" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudSelect Margin="Margin.Dense" @bind-Value="Value.PanelType" Label="Тип информационного табло" Variant="Variant.Outlined">
+            @foreach (var item in panelTypes)
+            {
+                <MudSelectItem Value="item">@item.GetDisplayName()</MudSelectItem>
+            }
+        </MudSelect>
+    </MudItem>
+</MudGrid>
+
+
+@code {
+
+    [Parameter] public CreateHardwareCommandVm Value { get; set; }
+    [Parameter] public EventCallback<CreateHardwareCommandVm> ValueChanged { get; set; }
+
+    private InformPanelType[] panelTypes = Enum.GetValues(typeof(InformPanelType)).Cast<InformPanelType>().ToArray();
+}

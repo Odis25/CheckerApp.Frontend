@@ -1,0 +1,123 @@
+﻿@using CheckerApp.Blazor.Shared.Modal
+
+<div class="col">
+    <div class="border p-2">
+        <div class="row mb-2">
+            <div class="col">
+                <MudTextField Label="Позиция по проекту" @bind-Value="Value.Position" Variant="Variant.Outlined"></MudTextField>
+                <ValidationMessage For="()=> Value.Position"></ValidationMessage>
+            </div>
+        </div>
+        <div class="mb-2 row">
+            <div class="col">
+                <MudTextField Label="Тип прибора" @bind-Value="((NetworkHardwareVm)Value).DeviceType" Variant="Variant.Outlined"></MudTextField>
+                <ValidationMessage For="()=> ((NetworkHardwareVm)Value).DeviceType"></ValidationMessage>
+            </div>
+        </div>
+        <div class="mb-2 row">
+            <div class="col">
+                <MudTextField Label="Модель прибора" @bind-Value="((NetworkHardwareVm)Value).DeviceModel" Variant="Variant.Outlined"></MudTextField>
+                <ValidationMessage For="()=> ((NetworkHardwareVm)Value).DeviceModel"></ValidationMessage>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col">
+                <MudTextField Label="Серийный номер" @bind-Value="((NetworkHardwareVm)Value).SerialNumber" Variant="Variant.Outlined"></MudTextField>
+                <ValidationMessage For="()=> ((NetworkHardwareVm)Value).SerialNumber"></ValidationMessage>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col">
+                <MudTextField Label="Маска подсети" @bind-Value="((NetworkHardwareVm)Value).Mask" Variant="Variant.Outlined"></MudTextField>
+                <ValidationMessage For="()=> ((NetworkHardwareVm)Value).Mask"></ValidationMessage>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col">
+    <h5>Подключенное оборудование:</h5>
+    <div class="border p-2">
+        <div class="row">
+            <div class="col py-2">
+                <MatButton Type="button" @onclick="AddNetworkDevice" Raised="true" Style="width:100%;">Добавить</MatButton>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col table-container table-network">
+                <table class="table table-sm table-striped table-hover" style="min-width:500px;">
+                    <thead>
+                        <tr>
+                            <th class="">Название</th>
+                            <th class="">IP</th>
+                            <th class="">MAC-адрес</th>
+                            <th class=""></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ((NetworkHardwareVm)Value).NetworkDevices)
+                        {
+                            <tr>
+                                <td class="">@item.Name</td>
+                                <td class="">@item.IP</td>
+                                <td class="">@item.MacAddress</td>
+                                <td class="">
+                                    <button type="button" class="btn btn-sm m-1 btn-outline-secondary" @onclick="@(()=> EditNetworkDevice(item.Id))"><span class="oi oi-pencil"></span></button>
+                                    <button type="button" class="btn btn-sm m-1 btn-outline-danger" @onclick="@(()=> DeleteNetworkDevice(item.Id))"><span class="oi oi-trash"></span></button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public HardwareVm Value { get; set; }
+
+    [Parameter]
+    public EventCallback<HardwareVm> ValueChanged { get; set; }
+
+    [CascadingParameter]
+    protected IDialogService DialogService { get; set; }
+
+    private async Task AddNetworkDevice()
+    {
+        var modalForm = DialogService.Show<NetworkDeviceAdd>("Подключенное устройство");
+
+        var result = await modalForm.Result;
+
+        if (!result.Cancelled)
+        {
+            var device = (NetworkDeviceDto)result.Data;
+
+            ((NetworkHardwareVm)Value).NetworkDevices.Add(device);
+        }
+    }
+
+    private async Task EditNetworkDevice(int id)
+    {
+        var device = ((NetworkHardwareVm)Value).NetworkDevices.First(d => d.Id == id);
+        var parameters = new DialogParameters { { "NetworkDevice", device } };
+        var modal = DialogService.Show<NetworkDeviceUpdate>("Редактировать", parameters);
+        var result = await modal.Result;
+
+        if (!result.Cancelled)
+        {
+            var newDevice = (NetworkDeviceDto)result.Data;
+            device.IP = newDevice.IP;
+            device.Name = newDevice.Name;
+            device.MacAddress = newDevice.MacAddress;
+        }
+    }
+
+    private void DeleteNetworkDevice(int id)
+    {
+        var device = ((NetworkHardwareVm)Value).NetworkDevices.First(d => d.Id == id);
+
+        ((NetworkHardwareVm)Value).NetworkDevices.Remove(device);
+    }
+}

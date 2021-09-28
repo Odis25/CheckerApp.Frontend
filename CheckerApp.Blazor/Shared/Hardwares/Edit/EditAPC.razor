@@ -1,0 +1,37 @@
+﻿<div class="col">
+    <div class="border p-2">
+        <div class="row mb-2">
+            <div class="col">
+                <MudTextField Label="Позиция по проекту" @bind-Value="Value.Position" Variant="Variant.Outlined"></MudTextField>
+                <ValidationMessage For="()=> Value.Position"></ValidationMessage>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col">
+                <MudTextField Label="Серийный номер" @bind-Value="Value.SerialNumber" Variant="Variant.Outlined"></MudTextField>
+                <ValidationMessage For="()=> Value.SerialNumber"></ValidationMessage>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col">
+                <MudTextField Label="Тип прибора" @bind-Value="((ApcVm)Value).DeviceType" Variant="Variant.Outlined"></MudTextField>
+                <ValidationMessage For="()=> ((ApcVm)Value).DeviceType"></ValidationMessage>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <MudTextField Label="Модель прибора" @bind-Value="((ApcVm)Value).DeviceModel" Variant="Variant.Outlined"></MudTextField>
+                <ValidationMessage For="()=> ((ApcVm)Value).DeviceModel"></ValidationMessage>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public HardwareVm Value { get; set; }
+
+    [Parameter]
+    public EventCallback<HardwareVm> ValueChanged { get; set; }
+}

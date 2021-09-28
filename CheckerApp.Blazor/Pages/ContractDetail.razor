@@ -1,0 +1,156 @@
+﻿@page "/contract/{id}/detail"
+
+
+@if (Contract == null)
+{
+    <MudGrid>
+        <MudItem xs="12" Class="d-flex justify-center align-center vh-80">
+            <div class="spinner"></div>
+        </MudItem>
+    </MudGrid>
+}
+else
+{
+    <MudGrid>
+        <MudItem xs="12">
+            <MudPaper Style="background-color: rgba(0,53,106,0.89)" Class="d-flex align-center justify-center mud-width-full py-2 mt-4 shades-text text-white">
+                <MudText Align="Align.Center" Typo="Typo.h5" GutterBottom="true">Детализация</MudText>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="6">
+            <MudCard Style="height:100%" Elevation="4">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">Информация о договоре</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudMenu Icon="@Icons.Material.Filled.Settings" Color="Color.Default" Direction="Direction.Left" OffsetX="true">
+                            <AuthorizeView Roles="Admin">
+                                <MudMenuItem OnClick="EditContract"><MudIcon Class="mr-2 mb-n1" Icon="@Icons.Filled.Edit" Color="Color.Default" />Редактировать договор</MudMenuItem>
+                                <MudMenuItem OnClick="AddHardware"><MudIcon Class="mr-2 mb-n1" Icon="@Icons.Filled.Delete" Color="Color.Default" />Удалить договор</MudMenuItem>
+                                <MudMenuItem OnClick="AddDocument"><MudIcon Class="mr-2 mb-n1" Icon="@Icons.Filled.FactCheck" Color="Color.Default" />Создать протокол</MudMenuItem>
+                            </AuthorizeView>
+                            <MudMenuItem OnClick="DownloadFile"><MudIcon Class="mr-2 mb-n1" Icon="@Icons.Filled.Download" Color="Color.Default" />Скачать протокол</MudMenuItem>
+                        </MudMenu>
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent Class="px-8">
+                    @if (_readonly)
+                    {
+                        <MudField Label="Название" Variant="Variant.Text">@Contract.Name</MudField>
+                        <MudField Label="Номер договора" Variant="Variant.Text">@Contract.ContractNumber</MudField>
+                        <MudField Label="Внутренний номер договора" Variant="Variant.Text">@Contract.DomesticNumber</MudField>
+                        <MudField Label="Внутренний номер проекта" Variant="Variant.Text">@Contract.ProjectNumber</MudField>
+                    }
+                    else
+                    {
+                        <MudForm Model="@Command" @ref="_form">
+                            <MudTextField Adornment="Adornment.End" AdornmentIcon="@Icons.Filled.Edit" @bind-Value="Command.Name" Label="Название" Variant="Variant.Text" For="() => Command.Name" />
+                            <MudTextField Adornment="Adornment.End" AdornmentIcon="@Icons.Filled.Edit" @bind-Value="Command.ContractNumber" Label="Номер договора" Variant="Variant.Text" For="() => Command.ContractNumber" />
+                            <MudTextField Adornment="Adornment.End" AdornmentIcon="@Icons.Filled.Edit" @bind-Value="Command.DomesticNumber" Label="Внутренний номер договора" Variant="Variant.Text" For="() => Command.DomesticNumber" />
+                            <MudTextField Adornment="Adornment.End" AdornmentIcon="@Icons.Filled.Edit" @bind-Value="Command.ProjectNumber" Label="Внутренний номер проекта" Variant="Variant.Text" For="() => Command.ProjectNumber" />
+                        </MudForm>
+                    }
+                    <MudField Label="Заводские испытания" Variant="Variant.Text"><span class="@ProtocolCss">@(Contract.HasProtocol ? "Завершены": "Не завершены")</span></MudField>
+                    <MudField Label="Добавлен" Variant="Variant.Text">@_created</MudField>
+                    <MudField Label="Изменен" Variant="Variant.Text">@_edited</MudField>
+                </MudCardContent>
+                <MudCardActions Class="justify-end align-center pr-6">
+                    @if (!_readonly)
+                    {
+                        <MudButton StartIcon="@Icons.Filled.Save" Class="mr-2 mb-2" Variant="Variant.Filled" OnClick="Submit" Color="Color.Primary">Сохранить</MudButton>
+                    }
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+        <MudItem xs="6">
+            <MudTabs Elevation="4" Color="Color.Info" Rounded="true" ApplyEffectsToContainer="true">
+                <MudTabPanel Icon="@Icons.Filled.Build" Text="Оборудование">
+                    <MudTable T="HardwareVm" Items="Contract.HardwareList" Dense="true" Hover="true" FixedHeader="true" Height="60vh">
+                        <ToolBarContent>
+                            <MudText Typo="Typo.h6" Align="Align.Left">Оборудование</MudText>
+                            <MudSpacer />
+                            <AuthorizeView Roles="Admin">
+                                <MudButton Class="mr-2" OnClick="AddHardware" Variant="Variant.Outlined" Color="Color.Default" StartIcon="@Icons.Filled.Add">Добавить</MudButton>
+                            </AuthorizeView>
+                        </ToolBarContent>
+                        <ColGroup>
+                            <col />
+                            <col />
+                            <col />
+                            <AuthorizeView Roles="Admin, SuperUser">
+                                <col style="width:120px;" />
+                            </AuthorizeView>
+                        </ColGroup>
+                        <HeaderContent>
+                            <MudTh><MudTableSortLabel SortBy="new Func<HardwareVm, object>(x => x.HardwareType)"><b>Тип</b></MudTableSortLabel></MudTh>
+                            <MudTh><MudTableSortLabel SortBy="new Func<HardwareVm, object>(x => x.Position)"><b>Позиция</b></MudTableSortLabel></MudTh>
+                            <MudTh><MudTableSortLabel SortBy="new Func<HardwareVm, object>(x => x.SerialNumber)"><b>Серийный номер</b></MudTableSortLabel></MudTh>
+                            <AuthorizeView Roles="Admin, SuperUser">
+                                <MudTh></MudTh>
+                            </AuthorizeView>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd DataLabel="Тип">@context.HardwareType.GetDisplayName()</MudTd>
+                            <MudTd DataLabel="Позиция">@context.Position</MudTd>
+                            <MudTd DataLabel="Серийный номер">@context.SerialNumber</MudTd>
+                            <AuthorizeView Context="state" Roles="Admin, SuperUser">
+                                <MudTd>
+                                    <MudTooltip Text="Редактировать">
+                                        <MudIconButton Class="ma-2" Icon="@Icons.Filled.Edit" Color="Color.Default" Size="Size.Small" OnClick="() => EditHardware(context.Id)" />
+                                    </MudTooltip>
+                                    <MudTooltip Text="Удалить">
+                                        <MudIconButton Class="ma-2" Icon="@Icons.Filled.Delete" Color="Color.Default" Size="Size.Small" OnClick="() => DeleteHardware(context.Id)" />
+                                    </MudTooltip>
+                                </MudTd>
+                            </AuthorizeView>
+                        </RowTemplate>
+                    </MudTable>
+                </MudTabPanel>
+                <MudTabPanel Icon="@Icons.Filled.ElectricalServices" Text="Программное обеспечение">
+                    <MudTable T="SoftwareDto" Items="Contract.SoftwareList" Elevation="2" Dense="true" Hover="true" FixedHeader="true" Height="60vh">
+                        <ToolBarContent>
+                            <MudText Typo="Typo.h6" Align="Align.Left">Программное обеспечение</MudText>
+                            <MudSpacer />
+                            <AuthorizeView Roles="Admin">
+                                <MudButton Class="mr-2" OnClick="AddSoftware" Variant="Variant.Outlined" Color="Color.Default" StartIcon="@Icons.Filled.Add">Добавить</MudButton>
+                            </AuthorizeView>
+                        </ToolBarContent>
+                        <ColGroup>
+                            <col />
+                            <col />
+                            <col />
+                            <AuthorizeView Roles="Admin, SuperUser">
+                                <col style="width:120px;" />
+                            </AuthorizeView>
+                        </ColGroup>
+                        <HeaderContent>
+                            <MudTh><MudTableSortLabel SortBy="new Func<SoftwareDto, object>(x => x.SoftwareType)"><b>Тип</b></MudTableSortLabel></MudTh>
+                            <MudTh><MudTableSortLabel SortBy="new Func<SoftwareDto, object>(x => x.Name)"><b>Название</b></MudTableSortLabel></MudTh>
+                            <MudTh><MudTableSortLabel SortBy="new Func<SoftwareDto, object>(x => x.Version)"><b>Версия</b></MudTableSortLabel></MudTh>
+                            <AuthorizeView Roles="Admin, SuperUser">
+                                <MudTh></MudTh>
+                            </AuthorizeView>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd DataLabel="Тип">@context.SoftwareType.GetDisplayName()</MudTd>
+                            <MudTd DataLabel="Название">@context.Name</MudTd>
+                            <MudTd DataLabel="Версия">@context.Version</MudTd>
+                            <AuthorizeView Context="state" Roles="Admin, SuperUser">
+                                <MudTd>
+                                    <MudTooltip Text="Редактировать">
+                                        <MudIconButton Class="ma-2" Icon="@Icons.Filled.Edit" Color="Color.Default" Size="Size.Small" OnClick="() => EditSoftware(context.Id)" />
+                                    </MudTooltip>
+                                    <MudTooltip Text="Удалить">
+                                        <MudIconButton Class="ma-2" Icon="@Icons.Filled.Delete" Color="Color.Default" Size="Size.Small" OnClick="() => DeleteSoftware(context.Id)" />
+                                    </MudTooltip>
+                                </MudTd>
+                            </AuthorizeView>
+                        </RowTemplate>
+                    </MudTable>
+                </MudTabPanel>
+            </MudTabs>
+        </MudItem>
+    </MudGrid>
+}
+

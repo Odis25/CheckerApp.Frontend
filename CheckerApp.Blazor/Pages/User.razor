@@ -1,0 +1,23 @@
+﻿@page "/account"
+
+<AuthorizeView>
+    <Authorized>
+        <div class="alert section-header p-4 mat-elevation-z5 ">
+
+            <h3>
+                Привет, @context.User.FindFirst(c => c.Type == "full_name").Value!
+                Вот список твоих клаймов:
+            </h3>
+            <ul>
+                @foreach (var claim in context.User.Claims)
+                {
+                    <li><b>@claim.Type</b>: @claim.Value</li>
+                }
+            </ul>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <h3>К сожалению, вы не авторизованы в приложении CheckerApp! </h3>
+        <p>Зайдите под своей учетной записью, чтобы получить доступ к данной странице.</p>
+    </NotAuthorized>
+</AuthorizeView>

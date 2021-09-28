@@ -1,0 +1,28 @@
+﻿<EditForm Model="Value" OnValidSubmit="Save" style="width: 500px">
+    <FluentValidationValidator />
+
+    <div class="row mb-2">
+        <div class="col">
+            <MudTextField Label="Название" @bind-Value="Value.Name" Variant="Variant.Outlined"></MudTextField>
+            <ValidationMessage For="()=> Value.Name"></ValidationMessage>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col">
+            <MudTextField Label="IP" @bind-Value="Value.IP" Variant="Variant.Outlined"></MudTextField>
+            <ValidationMessage For="()=> Value.IP"></ValidationMessage>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col">
+            <MudTextField Label="MAC-Address" @bind-Value="Value.MacAddress" Variant="Variant.Outlined"></MudTextField>
+            <ValidationMessage For="()=> Value.MacAddress"></ValidationMessage>
+        </div>
+    </div>
+    <hr />
+    <div class="">
+        <button class="btn btn-primary w-100 shadow" type="submit">
+            <span class="oi oi-check"></span> Сохранить
+        </button>
+    </div>
+</EditForm>

@@ -1,0 +1,29 @@
+﻿@using CheckerApp.Blazor.Models.Commands
+
+<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Позиция по проекту" @bind-Value="Value.Position" Variant="Variant.Outlined" For="(()=> Value.Position)" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Серийный номер" @bind-Value="Value.SerialNumber" Variant="Variant.Outlined" For="(()=> Value.SerialNumber)" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Ответственный за монтаж" @bind-Value="Value.ConstructedBy" Variant="Variant.Outlined" For="(()=> Value.ConstructedBy)" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudDatePicker Margin="Margin.Dense" Label="Дата завершения монтажа" @bind-Date="Value.Constructed" Variant="Variant.Outlined" AllowKeyboardInput="false" DisableToolbar="true" />
+    </MudItem>
+</MudGrid>
+
+
+@code {
+
+    [Parameter] public CreateHardwareCommandVm Value { get; set; }
+    [Parameter] public EventCallback<CreateHardwareCommandVm> ValueChanged { get; set; }
+}
