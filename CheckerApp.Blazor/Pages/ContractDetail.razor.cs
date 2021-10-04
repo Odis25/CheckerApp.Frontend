@@ -1,16 +1,12 @@
 ﻿using CheckerApp.Blazor.Common.JsonConverters;
 using CheckerApp.Blazor.Components;
-using CheckerApp.Blazor.Models;
 using CheckerApp.Blazor.Models.Commands;
 using CheckerApp.Blazor.Models.Contract;
 using CheckerApp.Blazor.Models.Hardware;
 using CheckerApp.Blazor.Models.Software;
-using CheckerApp.Blazor.Shared.Modal;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
-using System;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -51,9 +47,13 @@ namespace CheckerApp.Blazor.Pages
             await UpdateData();
         }
 
-        private void NavigateTo(int id)
+        private void CreateDocument()
         {
-            Navigation.NavigateTo($"/hardware/{id}/detail");
+            Navigation.NavigateTo($"/contract/{Id}/check");
+        }
+        private void DownloadDocument()
+        {
+            Navigation.NavigateTo($"/api/check/download/{Id}", true);
         }
 
         private async Task AddHardware()
@@ -72,33 +72,34 @@ namespace CheckerApp.Blazor.Pages
                 await UpdateData();
             }
         }
-
-        private async Task ImportHardwareAsync(InputFileChangeEventArgs e)
+        public async Task UpdateHardware(int id)
         {
-            if (!e.File.ContentType.Equals("text/xml", StringComparison.OrdinalIgnoreCase)) return;
-
-            var buffer = new byte[e.File.Size];
-
-            using (var stream = e.File.OpenReadStream())
+            var jsonOptions = new JsonSerializerOptions { Converters = { new HardwareConverter() } };
+            var hardware = await _httpClient.GetFromJsonAsync<HardwareVm>($"api/hardware/{id}", jsonOptions);
+            var parameters = new DialogParameters { ["Hardware"] = hardware };
+            var options = new DialogOptions
             {
-                await stream.ReadAsync(buffer);
-            }
-
-            var file = new FileModel
-            {
-                FileName = e.File.Name,
-                ContentType = e.File.ContentType,
-                Content = buffer,
-                Size = e.File.Size
+                CloseButton = true,
+                FullWidth = true
             };
 
-            await _httpClient.PostAsJsonAsync($"/api/hardware/import/{Id}", file);
+            var dialog = DialogService.Show<HardwareUpdate>("Редактирование", parameters, options);
+            var result = await dialog.Result;
+
+            if (!result.Cancelled)
+            {
+                await UpdateData();
+            }
+        }
+        private async Task DeleteHardware(int id)
+        {
+            await _httpClient.DeleteAsync($"api/hardware/{id}");
             await UpdateData();
         }
 
         private async Task AddSoftware()
         {
-            var parameters = new DialogParameters {{ "ContractId", Id }};
+            var parameters = new DialogParameters { { "ContractId", Id } };
             var modalForm = DialogService.Show<SoftwareAdd>("Новое ПО", parameters);
             var result = await modalForm.Result;
 
@@ -107,57 +108,25 @@ namespace CheckerApp.Blazor.Pages
                 await UpdateData();
             }
         }
-
-        private void DownloadFile()
-        {
-            Navigation.NavigateTo($"/api/check/download/{Id}", true);
-        }
-
-        private void AddDocument()
-        {
-            Navigation.NavigateTo($"/contract/{Id}/check");
-        }
-
-        private async Task EditHardware(int id)
-        {
-            var options = new JsonSerializerOptions { Converters = { new HardwareConverter() } };
-            var hardware = await _httpClient.GetFromJsonAsync<HardwareVm>($"api/hardware/{id}", options);
-            var parameters = new DialogParameters { { "Hardware", hardware } };
-            var modalWindow = DialogService.Show<UpdateHardwareModal>("Редактирование оборудования", parameters);
-            var result = await modalWindow.Result;
-
-            if (!result.Cancelled)
-            {
-                await UpdateData();
-            }
-        }
-
-        private async Task DeleteHardware(int id)
-        {
-            await _httpClient.DeleteAsync($"api/hardware/{id}");
-            await UpdateData();
-        }
-
-        private async Task EditSoftware(int id)
+        private async Task UpdateSoftware(int id)
         {
             var software = await _httpClient.GetFromJsonAsync<SoftwareDto>($"api/software/{id}");
             var parameters = new DialogParameters { { "Software", software } };
-            var modalWindow = DialogService.Show<UpdateSoftwareModal>("Редактирование ПО", parameters);
-            var result = await modalWindow.Result;
+            var dialog = DialogService.Show<SoftwareUpdate>("Редактирование", parameters);
+            var result = await dialog.Result;
 
             if (!result.Cancelled)
             {
                 await UpdateData();
             }
         }
-
         private async Task DeleteSoftware(int id)
         {
             await _httpClient.DeleteAsync($"api/software/{id}");
             await UpdateData();
         }
 
-        private async Task Submit()
+        private async Task UpdateContract()
         {
             await _form.Validate();
             var isValid = _form.IsValid;
@@ -168,8 +137,26 @@ namespace CheckerApp.Blazor.Pages
                 _readonly = true;
             }
         }
+        private async Task DeleteContract()
+        {
+            var result = await DialogService.ShowMessageBox(
+                title: $"Удаление договора {Contract.ContractNumber}",
+                message: "Вы уверены что хотите удалить этот договор?",
+                yesText: "Да",
+                noText: "Нет");
 
-        private void EditContract()
+            if (result.HasValue)
+            {
+                await _httpClient.DeleteAsync($"api/contract/{Contract.Id}");
+                Navigation.NavigateTo("/contract");
+            }
+        }
+
+        private void NavigateTo(int id)
+        {
+            Navigation.NavigateTo($"/hardware/{id}/detail");
+        }
+        private void SwitchEditMode()
         {
             Command = new UpdateContractCommandVm
             {
@@ -182,7 +169,6 @@ namespace CheckerApp.Blazor.Pages
 
             _readonly = !_readonly;
         }
-
         private async Task UpdateData()
         {
             Contract = await _httpClient.GetFromJsonAsync<ContractDetailVm>($"api/contract/{Id}");

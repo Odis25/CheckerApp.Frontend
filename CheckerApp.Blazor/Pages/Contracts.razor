@@ -31,7 +31,6 @@ else
                     <MudTh><MudTableSortLabel SortBy="new Func<ContractDto, object>(x => x.DomesticNumber)"><b>Внутренний номер договора</b></MudTableSortLabel></MudTh>
                     <MudTh><MudTableSortLabel SortBy="new Func<ContractDto, object>(x => x.ProjectNumber)"><b>Номер проекта</b></MudTableSortLabel></MudTh>
                     <MudTh><MudTableSortLabel SortBy="new Func<ContractDto, object>(x => x.Name)"><b>Название</b></MudTableSortLabel></MudTh>
-                    <MudTh></MudTh>
                 </HeaderContent>
                 <RowTemplate>
                     <MudTd DataLabel="Заводские испытания"><span class="@(context.HasProtocol ? "green-color" : "red-color")">@(context.HasProtocol ? "Завершены" : "Не завершены")</span></MudTd>
@@ -40,16 +39,6 @@ else
                     <MudTd DataLabel="Внутренний номер договора">@context.DomesticNumber</MudTd>
                     <MudTd DataLabel="Номер проекта">@context.ProjectNumber</MudTd>
                     <MudTd DataLabel="Название">@context.Name</MudTd>
-                    <AuthorizeView Context="state" Roles="Admin, SuperUser">
-                        <MudTd>
-                            <MudTooltip Text="Редактировать">
-                                <MudIconButton Class="ma-2" Icon="@Icons.Filled.Edit" Size="Size.Small" OnClick="() => EditContract(context.Id)" />
-                            </MudTooltip>
-                            <MudTooltip Text="Удалить">
-                                <MudIconButton Class="ma-2" Icon="@Icons.Filled.Delete" Size="Size.Small" OnClick="() => DeleteContract(context.Id)" />
-                            </MudTooltip>
-                        </MudTd>
-                    </AuthorizeView>
                 </RowTemplate>
             </MudTable>
         </MudItem>

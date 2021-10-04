@@ -1,0 +1,31 @@
+﻿<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Позиция по проекту" @bind-Value="Value.Position" Variant="Variant.Outlined" For="()=> Value.Position" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Серийный номер" @bind-Value="Value.SerialNumber" Variant="Variant.Outlined" For="()=> Value.SerialNumber" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Модель контроллера" @bind-Value="((PlcVm)Value).DeviceModel" Variant="Variant.Outlined" For="()=> ((PlcVm)Value).DeviceModel" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="IP адрес" @bind-Value="((PlcVm)Value).IP" Variant="Variant.Outlined" For="()=> ((PlcVm)Value).IP" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Версия сборки" @bind-Value="((PlcVm)Value).AssemblyVersion" Variant="Variant.Outlined" For="()=> ((PlcVm)Value).AssemblyVersion" />
+    </MudItem>
+</MudGrid>
+
+@code {
+
+    [Parameter] public HardwareVm Value { get; set; }
+    [Parameter] public EventCallback<HardwareVm> ValueChanged { get; set; }
+}

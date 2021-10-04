@@ -1,0 +1,21 @@
+﻿<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Позиция по проекту" @bind-Value="Value.Position" Variant="Variant.Outlined" For="()=> Value.Position" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Серийный номер" @bind-Value="Value.SerialNumber" Variant="Variant.Outlined" For="()=> Value.SerialNumber" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Тип устройства" @bind-Value="((FireModuleVm)Value).DeviceType" Variant="Variant.Outlined" For="()=> ((FireModuleVm)Value).DeviceType" />
+    </MudItem>
+</MudGrid>
+
+@code {
+
+    [Parameter] public HardwareVm Value { get; set; }
+    [Parameter] public EventCallback<HardwareVm> ValueChanged { get; set; }
+}

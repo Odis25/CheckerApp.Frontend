@@ -1,5 +1,4 @@
 ﻿using CheckerApp.Blazor.Models.Contract;
-using CheckerApp.Blazor.Shared.Modal;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using System;
@@ -14,8 +13,6 @@ namespace CheckerApp.Blazor.Pages
         private string searchString = "";
 
         [Inject] IHttpClientFactory HttpClientFactory { get; set; }
-        [Inject] IDialogService DialogService { get; set; }
-        [Inject] HttpClient HttpClient { get; set; }
         [Inject] NavigationManager Navigation { get; set; }
 
         ContractsListVm ContractsList { get; set; }
@@ -24,26 +21,6 @@ namespace CheckerApp.Blazor.Pages
         {
             var client = HttpClientFactory.CreateClient("Unauthorized");
             ContractsList = await client.GetFromJsonAsync<ContractsListVm>("api/contract");
-        }
-
-        private async Task EditContract(int id)
-        {
-            var contract = await HttpClient.GetFromJsonAsync<ContractDetailVm>($"api/contract/{id}");
-            var parameters = new DialogParameters { { "Contract", contract } };
-            var modalWindow = DialogService.Show<UpdateContractModal>("Редактирование договора", parameters);
-            var result = await modalWindow.Result;
-
-            if (!result.Cancelled)
-            {
-                ContractsList = await HttpClient.GetFromJsonAsync<ContractsListVm>("api/contract");
-            }
-        }
-
-        private async Task DeleteContract(int id)
-        {
-            await HttpClient.DeleteAsync($"api/contract/{id}");
-
-            ContractsList = await HttpClient.GetFromJsonAsync<ContractsListVm>("api/contract");
         }
 
         public void OpenContractDetails(TableRowClickEventArgs<ContractDto> args)

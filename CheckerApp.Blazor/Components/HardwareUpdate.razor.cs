@@ -1,4 +1,5 @@
-﻿using CheckerApp.Blazor.Common.JsonConverters;
+﻿using CheckerApp.Blazor.Common.Enums;
+using CheckerApp.Blazor.Common.JsonConverters;
 using CheckerApp.Blazor.Models.Commands;
 using CheckerApp.Blazor.Models.Hardware;
 using Microsoft.AspNetCore.Components;
@@ -8,9 +9,9 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace CheckerApp.Blazor.Shared.Modal
+namespace CheckerApp.Blazor.Components
 {
-    public partial class UpdateHardwareModal
+    public partial class HardwareUpdate
     {
         [Inject] HttpClient HttpClient { get; set; }
         [CascadingParameter] MudDialogInstance MudDialog { get; set; }
@@ -24,8 +25,21 @@ namespace CheckerApp.Blazor.Shared.Modal
             {
                 Hardware = Hardware
             };
+            UpdateWidth();
         }
-
+        private void UpdateWidth()
+        {
+            if (Hardware.HardwareType == HardwareType.Network)
+            {
+                MudDialog.Options.MaxWidth = MaxWidth.Medium;
+                MudDialog.SetOptions(MudDialog.Options);
+            }
+            else
+            {
+                MudDialog.Options.MaxWidth = MaxWidth.Small;
+                MudDialog.SetOptions(MudDialog.Options);
+            }
+        }
         protected async Task Submit()
         {
             var options = new JsonSerializerOptions { Converters = { new HardwareConverter() } };

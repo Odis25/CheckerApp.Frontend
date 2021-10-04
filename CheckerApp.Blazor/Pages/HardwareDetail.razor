@@ -32,7 +32,7 @@ else
                                     </tr>
                                     <tr>
                                         <td class="pr-4 py-2 font-weight-bold">Дата завершения монтажа</td>
-                                        <td><span class="">@Vm.Constructed.ToShortDateString()</span></td>
+                                        <td><span class="">@Vm.Constructed?.ToString("dd.MM.yyyy")</span></td>
                                     </tr>
                                 }
                                 break;

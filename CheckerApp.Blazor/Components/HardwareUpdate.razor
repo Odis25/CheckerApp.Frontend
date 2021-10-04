@@ -1,0 +1,69 @@
+﻿<MudDialog>
+    <DialogContent>
+        <EditForm Model="Command" OnValidSubmit="Submit">
+            <FluentValidationValidator />
+
+            @switch (Hardware.HardwareType)
+            {
+                case HardwareType.Cabinet:
+                    <CabinetUpdate Value="Command.Hardware" />
+                    break;
+
+                case HardwareType.FlowComputer:
+                    <FlowComputerUpdate Value="Command.Hardware" />
+                    break;
+
+                case HardwareType.Flowmeter:
+                    <FlowmeterUpdate Value="Command.Hardware" />
+                    break;
+
+                case HardwareType.Network:
+                    <NetworkUpdate Value="Command.Hardware" />
+                    break;
+
+                case HardwareType.PLC:
+                    <PlcUpdate Value="Command.Hardware" />
+                    break;
+
+                case HardwareType.Pressure:
+                case HardwareType.DiffPressure:
+                case HardwareType.GasAnalyzer:
+                case HardwareType.Temperature:
+                    <MeasurementUpdate Value="Command.Hardware" />
+                    break;
+
+                case HardwareType.APC:
+                    <ApcUpdate Value="Command.Hardware" />
+                    break;
+
+                case HardwareType.FireSensor:
+                    <FireSensorUpdate Value="Command.Hardware" />
+                    break;
+
+                case HardwareType.FireModule:
+                    <FireModuleUpdate Value="Command.Hardware" />
+                    break;
+
+                case HardwareType.InformPanel:
+                    <InformPanelUpdate Value="Command.Hardware" />
+                    break;
+
+                case HardwareType.Valve:
+                    <ValveUpdate Value="Command.Hardware" />
+                    break;
+
+                case HardwareType.ARM:
+                    <ArmUpdate Value="Command.Hardware" />
+                    break;
+            }
+
+            <MudButton ButtonType="ButtonType.Submit"
+                       Color="Color.Primary"
+                       StartIcon="@Icons.Filled.Save"
+                       FullWidth="true"
+                       Class="mt-5 mb-3 py-3"
+                       Variant="Variant.Filled">Сохранить</MudButton>
+
+        </EditForm>
+    </DialogContent>
+</MudDialog>

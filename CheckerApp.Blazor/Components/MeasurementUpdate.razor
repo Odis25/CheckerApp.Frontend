@@ -1,0 +1,71 @@
+﻿<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Позиция по проекту" @bind-Value="Value.Position" Variant="Variant.Outlined" For="()=> Value.Position" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Серийный номер" @bind-Value="Value.SerialNumber" Variant="Variant.Outlined" For="()=> Value.SerialNumber" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Тип прибора" @bind-Value="((MeasurementVm)Value).DeviceType" Variant="Variant.Outlined" For="()=> ((MeasurementVm)Value).DeviceType" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Модель прибора" @bind-Value="((MeasurementVm)Value).DeviceModel" Variant="Variant.Outlined" For="()=> ((MeasurementVm)Value).DeviceModel" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="4">
+        <MudNumericField Margin="Margin.Dense" Label="Низ шкалы" @bind-Value="((MeasurementVm)Value).MinValue" Format="F1" Variant="Variant.Outlined" For="()=> ((MeasurementVm)Value).MinValue" />
+    </MudItem>
+    <MudItem xs="4">
+        <MudNumericField Margin="Margin.Dense" Label="Верх шкалы" @bind-Value="((MeasurementVm)Value).MaxValue" Format="F1" Variant="Variant.Outlined" For="()=> ((MeasurementVm)Value).MaxValue" />
+    </MudItem>
+    <MudItem xs="4">
+        <MudSelect Margin="Margin.Dense" Label="Единицы измерения" @bind-Value="((MeasurementVm)Value).EU" Variant="Variant.Outlined">
+            @switch (Value.HardwareType)
+            {
+                case HardwareType.DiffPressure:
+                case HardwareType.Pressure:
+                    @foreach (var item in euArray)
+                    {
+                        <MudSelectItem Value="item" />
+                    }
+                    break;
+                case HardwareType.Temperature:
+                    <MudSelectItem Value="@("Град С.")" />
+                    break;
+                case HardwareType.GasAnalyzer:
+                    <MudSelectItem Value="@("%")" />
+                    break;
+                default:
+                    <MudSelectItem Value="@("---")" />
+                    break;
+            }
+            <MudSelectItem Value="@("Град С.")">Град С.</MudSelectItem>
+        </MudSelect>
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudSelect Margin="Margin.Dense" @bind-Value="((MeasurementVm)Value).SignalType" Label="Способ подключения" Variant="Variant.Outlined">
+            @foreach (var item in signals)
+            {
+                <MudSelectItem Value="item">@item.GetDisplayName()</MudSelectItem>
+            }
+        </MudSelect>
+    </MudItem>
+</MudGrid>
+
+@code {
+
+    [Parameter] public HardwareVm Value { get; set; }
+    [Parameter] public EventCallback<HardwareVm> ValueChanged { get; set; }
+
+    private string[] euArray = { "МПа", "кПа", "кгс/м2" };
+    private SignalType[] signals = Enum.GetValues(typeof(SignalType)).Cast<SignalType>().ToArray();
+}

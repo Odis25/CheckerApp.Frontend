@@ -1,0 +1,42 @@
+﻿
+<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Позиция по проекту" @bind-Value="Value.Position" Variant="Variant.Outlined" For="()=> Value.Position" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Серийный номер" @bind-Value="Value.SerialNumber" Variant="Variant.Outlined" For="()=> Value.SerialNumber" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Модель контроллера" @bind-Value="((FlowComputerVm)Value).DeviceModel" Variant="Variant.Outlined" For="()=> ((FlowComputerVm)Value).DeviceModel" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="IP адрес" @bind-Value="((FlowComputerVm)Value).IP" Variant="Variant.Outlined" For="()=> ((FlowComputerVm)Value).IP" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Версия сборки" @bind-Value="((FlowComputerVm)Value).AssemblyVersion" Variant="Variant.Outlined" For="()=> ((FlowComputerVm)Value).AssemblyVersion" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Контрольная сумма" @bind-Value="((FlowComputerVm)Value).CRC32" Variant="Variant.Outlined" For="()=> ((FlowComputerVm)Value).CRC32" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudNumericField Margin="Margin.Dense" Label="Дата последней конфигурации" @bind-Value="((FlowComputerVm)Value).LastConfigDate" Variant="Variant.Outlined" For="()=> ((FlowComputerVm)Value).LastConfigDate" />
+    </MudItem>
+</MudGrid>
+
+@code {
+
+    [Parameter] public HardwareVm Value { get; set; }
+    [Parameter] public EventCallback<HardwareVm> ValueChanged { get; set; }
+}

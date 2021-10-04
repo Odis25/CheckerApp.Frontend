@@ -3,14 +3,22 @@
         <EditForm Model="Device" OnValidSubmit="Save">
             <FluentValidationValidator />
 
-            <MudTextField Class="mt-3" Label="IP" @bind-Value="Device.IP" Variant="Variant.Outlined" For="()=> Device.IP" />
-            <MudTextField Class="mt-3" Label="MAC-Address" @bind-Value="Device.MacAddress" Variant="Variant.Outlined" For="()=> Device.MacAddress" />
+            <MudGrid>
+                <MudItem xs="12">
+                    <MudTextField Margin="Margin.Dense" Label="IP" @bind-Value="Device.IP" Variant="Variant.Outlined" For="()=> Device.IP" />
+                </MudItem>
+            </MudGrid>
+            <MudGrid>
+                <MudItem xs="12">
+                    <MudTextField Margin="Margin.Dense" Label="MAC-Address" @bind-Value="Device.MacAddress" Variant="Variant.Outlined" For="()=> Device.MacAddress" />
+                </MudItem>
+            </MudGrid>
 
             <MudButton ButtonType="ButtonType.Submit"
                        Color="Color.Primary"
                        StartIcon="@Icons.Filled.Save"
                        FullWidth="true"
-                       Class="mt-5 mb-3 py-3" 
+                       Class="mt-5 mb-3 py-3"
                        Variant="Variant.Filled">Сохранить</MudButton>
 
         </EditForm>

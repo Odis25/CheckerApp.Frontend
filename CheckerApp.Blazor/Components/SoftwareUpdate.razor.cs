@@ -8,9 +8,9 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace CheckerApp.Blazor.Shared.Modal
+namespace CheckerApp.Blazor.Components
 {
-    public partial class UpdateSoftwareModal
+    public partial class SoftwareUpdate
     {
         [Inject] HttpClient HttpClient { get; set; }
         [CascadingParameter] MudDialogInstance MudDialog { get; set; }

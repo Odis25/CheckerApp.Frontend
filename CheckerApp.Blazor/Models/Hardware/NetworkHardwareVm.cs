@@ -7,13 +7,13 @@ namespace CheckerApp.Blazor.Models.Hardware
     {
         public NetworkHardwareVm()
         {
-            NetworkDevices = new HashSet<NetworkDeviceDto>();
+            NetworkDevices = new List<NetworkDeviceDto>();
             HardwareType = HardwareType.Network;
         }
         public string DeviceType { get; set; }
         public string DeviceModel { get; set; }
         public string Mask { get; set; }
-        public ICollection<NetworkDeviceDto> NetworkDevices { get; set; }
+        public IList<NetworkDeviceDto> NetworkDevices { get; set; }
     }
     public class NetworkDeviceDto
     {

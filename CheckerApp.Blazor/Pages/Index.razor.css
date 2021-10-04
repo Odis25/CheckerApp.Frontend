@@ -1,23 +1,5 @@
-﻿.logo {
-    font-weight: bold;
-    font-size: 1.3em;
-    text-shadow: 2px 2px 3px #888;
-    color: #dec;
-}
-
-    .logo.logo-left {
-        text-shadow: 2px 2px 3px #000;
-    }
-
-    .logo.logo-right {
-        margin-left: 0.5rem;
-        background: #dec;
-        border-radius: 5px;
-        padding: 5px;
-        color: #000;
-    }
-
-.scroller {
+﻿
+::deep.scroller {
     overflow-y: auto;
     overflow-x: hidden;
     height: 80vh;

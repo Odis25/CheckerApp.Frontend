@@ -20,7 +20,7 @@ namespace CheckerApp.Blazor.Common.JsonConverters
 
             using (var jsonDocument = JsonDocument.ParseValue(ref reader))
             {
-                if (!jsonDocument.RootElement.TryGetProperty("SoftwareType", out var typeProperty))
+                if (!jsonDocument.RootElement.TryGetProperty("softwareType", out var typeProperty))
                 {
                     throw new JsonException();
                 }

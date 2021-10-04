@@ -1,0 +1,38 @@
+﻿<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Позиция по проекту" @bind-Value="Value.Position" Variant="Variant.Outlined" For="()=> Value.Position" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Серийный номер" @bind-Value="Value.SerialNumber" Variant="Variant.Outlined" For="()=> Value.SerialNumber" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Тип прибора" @bind-Value="((InformPanelVm)Value).DeviceType" Variant="Variant.Outlined" For="()=> ((InformPanelVm)Value).DeviceType" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudTextField Margin="Margin.Dense" Label="Модель прибора" @bind-Value="((InformPanelVm)Value).DeviceModel" Variant="Variant.Outlined" For="()=> ((InformPanelVm)Value).DeviceModel" />
+    </MudItem>
+</MudGrid>
+<MudGrid>
+    <MudItem xs="12">
+        <MudSelect Margin="Margin.Dense" @bind-Value="((InformPanelVm)Value).PanelType" Label="Тип информационного табло" Variant="Variant.Outlined">
+            @foreach (var item in panelTypes)
+            {
+                <MudSelectItem Value="item">@item.GetDisplayName()</MudSelectItem>
+            }
+        </MudSelect>
+    </MudItem>
+</MudGrid>
+
+@code {
+
+    [Parameter] public HardwareVm Value { get; set; }
+    [Parameter] public EventCallback<HardwareVm> ValueChanged { get; set; }
+
+    private InformPanelType[] panelTypes = Enum.GetValues(typeof(InformPanelType)).Cast<InformPanelType>().ToArray();
+}

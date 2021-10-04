@@ -9,7 +9,7 @@ namespace CheckerApp.Blazor.Models.Hardware
         {
             HardwareType = HardwareType.Cabinet;
         }
-        public DateTime Constructed { get; set; }
+        public DateTime? Constructed { get; set; }
         public string ConstructedBy { get; set; }
     }
 }

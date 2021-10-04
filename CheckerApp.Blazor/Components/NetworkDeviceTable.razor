@@ -40,8 +40,8 @@
 
     private async Task Add()
     {
-        var modalForm = DialogService.Show<NetworkDeviceAdd>("");
-        var result = await modalForm.Result;
+        var dialog = DialogService.Show<NetworkDeviceAdd>("");
+        var result = await dialog.Result;
 
         if (!result.Cancelled)
         {
@@ -56,8 +56,8 @@
 
         var device = Value.ElementAt(index);
         var parameters = new DialogParameters { { "NetworkDevice", device } };
-        var modal = DialogService.Show<NetworkDeviceUpdate>("Редактировать", parameters);
-        var result = await modal.Result;
+        var dialog = DialogService.Show<NetworkDeviceUpdate>("Редактировать", parameters);
+        var result = await dialog.Result;
 
         if (!result.Cancelled)
         {

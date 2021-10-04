@@ -26,11 +26,11 @@ else
                     <CardHeaderActions>
                         <MudMenu Icon="@Icons.Material.Filled.Settings" Color="Color.Default" Direction="Direction.Left" OffsetX="true">
                             <AuthorizeView Roles="Admin">
-                                <MudMenuItem OnClick="EditContract"><MudIcon Class="mr-2 mb-n1" Icon="@Icons.Filled.Edit" Color="Color.Default" />Редактировать договор</MudMenuItem>
-                                <MudMenuItem OnClick="AddHardware"><MudIcon Class="mr-2 mb-n1" Icon="@Icons.Filled.Delete" Color="Color.Default" />Удалить договор</MudMenuItem>
-                                <MudMenuItem OnClick="AddDocument"><MudIcon Class="mr-2 mb-n1" Icon="@Icons.Filled.FactCheck" Color="Color.Default" />Создать протокол</MudMenuItem>
+                                <MudMenuItem OnClick="SwitchEditMode"><MudIcon Class="mr-2 mb-n1" Icon="@Icons.Filled.Edit" Color="Color.Default" />Редактировать договор</MudMenuItem>
+                                <MudMenuItem OnClick="DeleteContract"><MudIcon Class="mr-2 mb-n1" Icon="@Icons.Filled.Delete" Color="Color.Default" />Удалить договор</MudMenuItem>
+                                <MudMenuItem OnClick="CreateDocument"><MudIcon Class="mr-2 mb-n1" Icon="@Icons.Filled.FactCheck" Color="Color.Default" />Создать протокол</MudMenuItem>
                             </AuthorizeView>
-                            <MudMenuItem OnClick="DownloadFile"><MudIcon Class="mr-2 mb-n1" Icon="@Icons.Filled.Download" Color="Color.Default" />Скачать протокол</MudMenuItem>
+                            <MudMenuItem OnClick="DownloadDocument"><MudIcon Class="mr-2 mb-n1" Icon="@Icons.Filled.Download" Color="Color.Default" />Скачать протокол</MudMenuItem>
                         </MudMenu>
                     </CardHeaderActions>
                 </MudCardHeader>
@@ -58,7 +58,7 @@ else
                 <MudCardActions Class="justify-end align-center pr-6">
                     @if (!_readonly)
                     {
-                        <MudButton StartIcon="@Icons.Filled.Save" Class="mr-2 mb-2" Variant="Variant.Filled" OnClick="Submit" Color="Color.Primary">Сохранить</MudButton>
+                        <MudButton StartIcon="@Icons.Filled.Save" Class="mr-2 mb-2" Variant="Variant.Filled" OnClick="UpdateContract" Color="Color.Primary">Сохранить</MudButton>
                     }
                 </MudCardActions>
             </MudCard>
@@ -97,7 +97,7 @@ else
                             <AuthorizeView Context="state" Roles="Admin, SuperUser">
                                 <MudTd>
                                     <MudTooltip Text="Редактировать">
-                                        <MudIconButton Class="ma-2" Icon="@Icons.Filled.Edit" Color="Color.Default" Size="Size.Small" OnClick="() => EditHardware(context.Id)" />
+                                        <MudIconButton Class="ma-2" Icon="@Icons.Filled.Edit" Color="Color.Default" Size="Size.Small" OnClick="() => UpdateHardware(context.Id)" />
                                     </MudTooltip>
                                     <MudTooltip Text="Удалить">
                                         <MudIconButton Class="ma-2" Icon="@Icons.Filled.Delete" Color="Color.Default" Size="Size.Small" OnClick="() => DeleteHardware(context.Id)" />
@@ -139,7 +139,7 @@ else
                             <AuthorizeView Context="state" Roles="Admin, SuperUser">
                                 <MudTd>
                                     <MudTooltip Text="Редактировать">
-                                        <MudIconButton Class="ma-2" Icon="@Icons.Filled.Edit" Color="Color.Default" Size="Size.Small" OnClick="() => EditSoftware(context.Id)" />
+                                        <MudIconButton Class="ma-2" Icon="@Icons.Filled.Edit" Color="Color.Default" Size="Size.Small" OnClick="() => UpdateSoftware(context.Id)" />
                                     </MudTooltip>
                                     <MudTooltip Text="Удалить">
                                         <MudIconButton Class="ma-2" Icon="@Icons.Filled.Delete" Color="Color.Default" Size="Size.Small" OnClick="() => DeleteSoftware(context.Id)" />

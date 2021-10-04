@@ -1,16 +1,6 @@
-﻿<EditForm Model="Command" OnValidSubmit="Submit">
+﻿
+<EditForm Model="Command" OnValidSubmit="Submit">
     <FluentValidationValidator />
-
-    <MudGrid>
-        <MudItem xs="12">
-            <MudSelect Margin="Margin.Dense" Label="Тип программного обеспечения" @bind-Value="Command.SoftwareType" Variant="Variant.Outlined">
-                @foreach (var item in _softwareTypes)
-                {
-                    <MudSelectItem Value="item">@item.GetDisplayName()</MudSelectItem>
-                }
-            </MudSelect>
-        </MudItem>
-    </MudGrid>
 
     <MudGrid>
         <MudItem xs="12">
