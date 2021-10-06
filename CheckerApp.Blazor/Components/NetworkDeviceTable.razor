@@ -18,19 +18,19 @@
                 <td>@item.IP</td>
                 <td>@item.MacAddress</td>
                 <td>
-                    <MudIconButton Size="Size.Small" Icon="@Icons.Filled.Edit" OnClick="()=> Update(index)"/>
-                    <MudIconButton Size="Size.Small" Icon="@Icons.Filled.Delete" OnClick="()=> Delete(index)"/>
+                    <MudIconButton Size="Size.Small" Icon="@Icons.Filled.Edit" OnClick="() => Upsert(index)" />
+                    <MudIconButton Size="Size.Small" Icon="@Icons.Filled.Delete" OnClick="() => Delete(index)" />
                 </td>
             </tr>
         }
     </tbody>
 </MudSimpleTable>
-<MudButton Class="mt-3" 
-           ButtonType="ButtonType.Button" 
-           Color="Color.Default" 
-           Variant="Variant.Filled" 
-           StartIcon="@Icons.Filled.AddLink" 
-           OnClick="Add" FullWidth="true">Добавить</MudButton>
+<MudButton Class="mt-3"
+           ButtonType="ButtonType.Button"
+           Color="Color.Default"
+           Variant="Variant.Filled"
+           StartIcon="@Icons.Filled.AddLink"
+           OnClick="()=> Upsert(-1)" FullWidth="true">Добавить сетевое устройство</MudButton>
 
 
 @code{
@@ -38,33 +38,34 @@
     [Parameter] public IList<NetworkDeviceDto> Value { get; set; }
     [Parameter] public EventCallback<IList<NetworkDeviceDto>> ValueChanged { get; set; }
 
-    private async Task Add()
+    
+    private async Task Upsert(int index)
     {
-        var dialog = DialogService.Show<NetworkDeviceAdd>("");
-        var result = await dialog.Result;
+        var device = index == -1 ? new NetworkDeviceDto() : Value.ElementAt(index);
 
-        if (!result.Cancelled)
+        var options = new DialogOptions
         {
-            var device = (NetworkDeviceDto)result.Data;
-            Value.Add(device);
-        }
-    }
-
-    private async Task Update(int index)
-    {
-        if (index == -1) return;
-
-        var device = Value.ElementAt(index);
+            CloseButton = true,
+            FullWidth = true,
+            MaxWidth = MaxWidth.ExtraSmall
+        };
         var parameters = new DialogParameters { { "NetworkDevice", device } };
-        var dialog = DialogService.Show<NetworkDeviceUpdate>("Редактировать", parameters);
+        var dialog = DialogService.Show<NetworkDeviceUpsert>("Сетевое устройство", parameters, options);
         var result = await dialog.Result;
 
         if (!result.Cancelled)
         {
             var newDevice = (NetworkDeviceDto)result.Data;
-            device.IP = newDevice.IP;
-            device.Name = newDevice.Name;
-            device.MacAddress = newDevice.MacAddress;
+            if (index == -1)
+            {
+                Value.Add(newDevice);
+            }
+            else
+            {
+                device.IP = newDevice.IP;
+                device.Name = newDevice.Name;
+                device.MacAddress = newDevice.MacAddress;
+            }
         }
     }
 

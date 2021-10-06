@@ -9,6 +9,7 @@ namespace CheckerApp.Blazor.Models.Hardware
         {
             NetworkDevices = new List<NetworkDeviceDto>();
             HardwareType = HardwareType.Network;
+            Mask = "255.255.255.0";
         }
         public string DeviceType { get; set; }
         public string DeviceModel { get; set; }

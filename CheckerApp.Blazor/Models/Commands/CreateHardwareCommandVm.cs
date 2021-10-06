@@ -13,6 +13,7 @@ namespace CheckerApp.Blazor.Models.Commands
             NetworkDevices = new List<NetworkDeviceDto>();
             NetworkAdapters = new List<NetworkAdapterDto>();
             Constructed = DateTime.Now;
+            Mask  = "255.255.255.0";
         }
         public HardwareType HardwareType { get; set; }
         public SignalType SignalType { get; set; }
