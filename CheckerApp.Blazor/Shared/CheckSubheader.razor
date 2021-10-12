@@ -1,12 +1,16 @@
 ﻿
-<div class="subheader">
+<MudPaper Class="px-2 py-4 blue darken-1 shades-text text-white subheader" Outlined="true">
     @switch (Hardware.HardwareType)
     {
         case HardwareType.Cabinet:
-            <div class="row">
-                <div class="col">
+            <MudGrid>
+                <MudItem xs="12">
                     <table>
                         <tbody>
+                            <tr>
+                                <td>Оборудование:</td>
+                                <td>@Hardware.HardwareType.GetDisplayName()</td>
+                            </tr>
                             <tr>
                                 <td>Позиция по проекту:</td>
                                 <td>@Hardware.Position</td>
@@ -25,14 +29,18 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
-            </div>
+                </MudItem>
+            </MudGrid>
             break;
 
         case HardwareType.FlowComputer:
-            <div class="row">
-                <div class="col-12 col-lg">
+            <MudGrid>
+                <MudItem xs="12" md="6">
                     <table>
+                        <tr>
+                            <td>Оборудование:</td>
+                            <td>@Hardware.HardwareType.GetDisplayName()</td>
+                        </tr>
                         <tr>
                             <td>Позиция по проекту:</td>
                             <td>@Hardware.Position</td>
@@ -50,8 +58,8 @@
                             <td>@(((FlowComputerVm)Hardware).IP)</td>
                         </tr>
                     </table>
-                </div>
-                <div class="col-12 col-lg">
+                </MudItem>
+                <MudItem xs="12" md="6">
                     <table>
                         <tr>
                             <td>Версия сборки:</td>
@@ -66,14 +74,18 @@
                             <td>@(((FlowComputerVm)Hardware).LastConfigDate)</td>
                         </tr>
                     </table>
-                </div>
-            </div>
+                </MudItem>
+            </MudGrid>
             break;
 
         case HardwareType.Flowmeter:
-            <div class="row">
-                <div class="col-12 col-lg">
+            <MudGrid>
+                <MudItem xs="12" md="6">
                     <table>
+                        <tr>
+                            <td>Оборудование:</td>
+                            <td>@Hardware.HardwareType.GetDisplayName()</td>
+                        </tr>
                         <tr>
                             <td>Позиция по проекту:</td>
                             <td>@Hardware.Position</td>
@@ -91,8 +103,8 @@
                             <td>@Hardware.SerialNumber</td>
                         </tr>
                     </table>
-                </div>
-                <div class="col-12 col-lg">
+                </MudItem>
+                <MudItem xs="12" md="6">
                     <table>
                         <tr>
                             <td>Диапазон:</td>
@@ -120,14 +132,18 @@
                             </tr>
                         }
                     </table>
-                </div>
-            </div>
+                </MudItem>
+            </MudGrid>
             break;
 
         case HardwareType.Network:
-            <div class="row">
-                <div class="col-12">
+            <MudGrid>
+                <MudItem xs="12">
                     <table>
+                        <tr>
+                            <td>Оборудование:</td>
+                            <td>@Hardware.HardwareType.GetDisplayName()</td>
+                        </tr>
                         <tr>
                             <td>Позиция по проекту:</td>
                             <td>@Hardware.Position</td>
@@ -145,14 +161,18 @@
                             <td>@(((NetworkHardwareVm)Hardware).DeviceModel)</td>
                         </tr>
                     </table>
-                </div>
-            </div>
+                </MudItem>
+            </MudGrid>
             break;
 
         case HardwareType.PLC:
-            <div class="row">
-                <div class="col-12 col-lg">
+            <MudGrid>
+                <MudItem xs="12" md="6">
                     <table>
+                        <tr>
+                            <td>Оборудование:</td>
+                            <td>@Hardware.HardwareType.GetDisplayName()</td>
+                        </tr>
                         <tr>
                             <td>Позиция по проекту:</td>
                             <td>@Hardware.Position</td>
@@ -170,25 +190,29 @@
                             <td>@(((PlcVm)Hardware).IP)</td>
                         </tr>
                     </table>
-                </div>
-                <div class="col-12 col-lg">
+                </MudItem>
+                <MudItem xs="12" md="6">
                     <table>
                         <tr>
                             <td>Версия сборки:</td>
                             <td>@(((PlcVm)Hardware).AssemblyVersion)</td>
                         </tr>
                     </table>
-                </div>
-            </div>
+                </MudItem>
+            </MudGrid>
             break;
 
         case HardwareType.Pressure:
         case HardwareType.Temperature:
         case HardwareType.DiffPressure:
         case HardwareType.GasAnalyzer:
-            <div class="row">
-                <div class="col-12 col-lg">
+            <MudGrid>
+                <MudItem xs="12" md="6">
                     <table>
+                        <tr>
+                            <td>Оборудование:</td>
+                            <td>@Hardware.HardwareType.GetDisplayName()</td>
+                        </tr>
                         <tr>
                             <td>Позиция по проекту:</td>
                             <td>@Hardware.Position</td>
@@ -206,8 +230,8 @@
                             <td>@Hardware.SerialNumber</td>
                         </tr>
                     </table>
-                </div>
-                <div class="col-12 col-lg">
+                </MudItem>
+                <MudItem xs="12" md="6">
                     <table>
                         <tr>
                             <td>Диапазон:</td>
@@ -218,14 +242,18 @@
                             <td>@(((MeasurementVm)Hardware).SignalType.GetDisplayName())</td>
                         </tr>
                     </table>
-                </div>
-            </div>
+                </MudItem>
+            </MudGrid>
             break;
 
         case HardwareType.APC:
-            <div class="row">
-                <div class="col-12 col-lg">
+            <MudGrid>
+                <MudItem xs="12">
                     <table>
+                        <tr>
+                            <td>Оборудование:</td>
+                            <td>@Hardware.HardwareType.GetDisplayName()</td>
+                        </tr>
                         <tr>
                             <td>Позиция по проекту:</td>
                             <td>@Hardware.Position</td>
@@ -243,14 +271,18 @@
                             <td>@Hardware.SerialNumber</td>
                         </tr>
                     </table>
-                </div>
-            </div>
+                </MudItem>
+            </MudGrid>
             break;
 
         case HardwareType.FireSensor:
-            <div class="row">
-                <div class="col-12 col-lg">
+            <MudGrid>
+                <MudItem xs="12">
                     <table>
+                        <tr>
+                            <td>Оборудование:</td>
+                            <td>@Hardware.HardwareType.GetDisplayName()</td>
+                        </tr>
                         <tr>
                             <td>Позиция по проекту:</td>
                             <td>@Hardware.Position</td>
@@ -268,14 +300,18 @@
                             <td>@Hardware.SerialNumber</td>
                         </tr>
                     </table>
-                </div>
-            </div>
+                </MudItem>
+            </MudGrid>
             break;
 
         case HardwareType.FireModule:
-            <div class="row">
-                <div class="col-12 col-lg">
+            <MudGrid>
+                <MudItem xs="12">
                     <table>
+                        <tr>
+                            <td>Оборудование:</td>
+                            <td>@Hardware.HardwareType.GetDisplayName()</td>
+                        </tr>
                         <tr>
                             <td>Позиция по проекту:</td>
                             <td>@Hardware.Position</td>
@@ -289,14 +325,18 @@
                             <td>@Hardware.SerialNumber</td>
                         </tr>
                     </table>
-                </div>
-            </div>
+                </MudItem>
+            </MudGrid>
             break;
 
         case HardwareType.InformPanel:
-            <div class="row">
-                <div class="col-12 col-lg">
+            <MudGrid>
+                <MudItem xs="12" md="6">
                     <table>
+                        <tr>
+                            <td>Оборудование:</td>
+                            <td>@Hardware.HardwareType.GetDisplayName()</td>
+                        </tr>
                         <tr>
                             <td>Позиция по проекту:</td>
                             <td>@Hardware.Position</td>
@@ -314,22 +354,26 @@
                             <td>@Hardware.SerialNumber</td>
                         </tr>
                     </table>
-                </div>
-                <div class="col-12 col-lg">
+                </MudItem>
+                <MudItem xs="12" md="6">
                     <table>
                         <tr>
                             <td>Тип подключения:</td>
                             <td>@(((InformPanelVm)Hardware).PanelType.GetDisplayName())</td>
                         </tr>
                     </table>
-                </div>
-            </div>
+                </MudItem>
+            </MudGrid>
             break;
 
         case HardwareType.Valve:
-            <div class="row">
-                <div class="col-12 col-lg">
+            <MudGrid>
+                <MudItem xs="12" md="6">
                     <table>
+                        <tr>
+                            <td>Оборудование:</td>
+                            <td>@Hardware.HardwareType.GetDisplayName()</td>
+                        </tr>
                         <tr>
                             <td>Позиция по проекту:</td>
                             <td>@Hardware.Position</td>
@@ -347,8 +391,8 @@
                             <td>@Hardware.SerialNumber</td>
                         </tr>
                     </table>
-                </div>
-                <div class="col-12 col-lg">
+                </MudItem>
+                <MudItem xs="12" md="6">
                     <table>
                         <tr>
                             <td>Тип подключения:</td>
@@ -368,14 +412,18 @@
                             </tr>
                         }
                     </table>
-                </div>
-            </div>
+                </MudItem>
+            </MudGrid>
             break;
 
         case HardwareType.ARM:
-            <div class="row">
-                <div class="col-12 col-lg">
+            <MudGrid>
+                <MudItem xs="12" md="6">
                     <table>
+                        <tr>
+                            <td>Оборудование:</td>
+                            <td>@Hardware.HardwareType.GetDisplayName()</td>
+                        </tr>
                         <tr>
                             <td>Модель станции:</td>
                             <td>@(((ArmVm)Hardware).Name)</td>
@@ -405,8 +453,8 @@
                             <td>@(((ArmVm)Hardware).HasRAID ? "Есть": "Нет")</td>
                         </tr>
                     </table>
-                </div>
-                <div class="col-12 col-lg">
+                </MudItem>
+                <MudItem xs="12" md="6">
                     <table>
                         <tr>
                             <td>Зав. № станции:</td>
@@ -429,11 +477,11 @@
                             <td>@(((ArmVm)Hardware).ProductKeyOS)</td>
                         </tr>
                     </table>
-                </div>
+                </MudItem>
                 @if (((ArmVm)Hardware).NetworkAdapters.Any())
                 {
                     var adapters = ((ArmVm)Hardware).NetworkAdapters;
-                    <div class="col-12 col-lg">
+                    <MudItem xs="12">
                         <table>
                             @for (int i = 0; i < adapters.Count; i++)
                             {
@@ -443,12 +491,13 @@
                                 </tr>
                             }
                         </table>
-                    </div>
+                    </MudItem>
                 }
-            </div>
+            </MudGrid>
             break;
     }
-</div>
+
+</MudPaper>
 
 @code {
 

@@ -1,23 +1,14 @@
-﻿.subheader {
-    width: 100%;
-    border-radius: 5px;
-    border: 2px solid rgba(0,0,0,0.5);
-    background-color: #ccdde8;
-    padding: 0.5rem 1.5rem;
+﻿
+.subheader td:first-child {
+    width: auto;
+    padding-right: 2rem;
 }
 
-    .subheader td:first-child {
-        width: auto;
-        padding-right: 2rem;
-    }
+.subheader td:nth-child(even) {
+    font-weight: bold;
+    padding-right: 4rem;
+}
 
-    .subheader td:nth-child(even) {
-        font-weight: bold;
-        padding-right: 4rem;
-    }
-
-    .subheader td:last-child {
-        padding-right: 0;
-    }
-
-
+.subheader td:last-child {
+    padding-right: 0;
+}

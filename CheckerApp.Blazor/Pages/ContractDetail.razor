@@ -29,8 +29,8 @@ else
                                 <MudMenuItem OnClick="SwitchEditMode"><MudIcon Class="mr-2 mb-n1" Icon="@Icons.Filled.Edit" Color="Color.Default" />Редактировать договор</MudMenuItem>
                                 <MudMenuItem OnClick="DeleteContract"><MudIcon Class="mr-2 mb-n1" Icon="@Icons.Filled.Delete" Color="Color.Default" />Удалить договор</MudMenuItem>
                                 <MudMenuItem OnClick="CreateDocument"><MudIcon Class="mr-2 mb-n1" Icon="@Icons.Filled.FactCheck" Color="Color.Default" />Создать протокол</MudMenuItem>
-                            </AuthorizeView>
-                            <MudMenuItem OnClick="DownloadDocument"><MudIcon Class="mr-2 mb-n1" Icon="@Icons.Filled.Download" Color="Color.Default" />Скачать протокол</MudMenuItem>
+                            </AuthorizeView>                            
+                            <MudMenuItem Disabled="@(!(Contract.HasProtocol))" Link="@DownloadLink"><MudIcon Class="mr-2 mb-n1"  Icon="@Icons.Filled.Download" Color="Color.Default" />Скачать протокол</MudMenuItem>
                         </MudMenu>
                     </CardHeaderActions>
                 </MudCardHeader>
@@ -66,7 +66,7 @@ else
         <MudItem xs="6">
             <MudTabs Elevation="4" Color="Color.Info" Rounded="true" ApplyEffectsToContainer="true">
                 <MudTabPanel Icon="@Icons.Filled.Build" Text="Оборудование">
-                    <MudTable T="HardwareVm" Items="Contract.HardwareList" Dense="true" Hover="true" FixedHeader="true" Height="60vh">
+                    <MudTable T="HardwareVm" Items="Contract.HardwareList" Dense="true" Hover="true" FixedHeader="true" Height="60vh" OnRowClick="OpenHardwareDetails">
                         <ToolBarContent>
                             <MudText Typo="Typo.h6" Align="Align.Left">Оборудование</MudText>
                             <MudSpacer />

@@ -1,14 +1,6 @@
 ﻿.hardwarechecks {
-    height: 80vh;
+    width: 100%;
+    height: 86vh;
     overflow-y: auto;
     padding: 0 1rem;
-}
-
-.control-panel .btn {
-    border-radius: 10px;
-    box-shadow: 2px 2px 4px rgba(0,0,0,0.6);
-    margin: 0.3rem 0 0.3rem 0;
-    width: inherit;
-    text-align: center;
-    padding-left: 1rem;
 }

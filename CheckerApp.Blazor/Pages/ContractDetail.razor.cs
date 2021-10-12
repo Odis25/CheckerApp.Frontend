@@ -6,6 +6,7 @@ using CheckerApp.Blazor.Models.Hardware;
 using CheckerApp.Blazor.Models.Software;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.Extensions.Configuration;
 using MudBlazor;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -25,6 +26,7 @@ namespace CheckerApp.Blazor.Pages
         [Inject] IHttpClientFactory HttpClientFactory { get; set; }
         [Inject] IDialogService DialogService { get; set; }
         [Inject] NavigationManager Navigation { get; set; }
+        [Inject] IConfiguration Configuration { get; set; }
 
         [Parameter] public string Id { get; set; }
         [CascadingParameter] private Task<AuthenticationState> AuthenticationStateTask { get; set; }
@@ -32,6 +34,7 @@ namespace CheckerApp.Blazor.Pages
         protected ContractDetailVm Contract { get; set; }
         protected UpdateContractCommandVm Command { get; set; } = new();
         protected string ProtocolCss => Contract.HasProtocol ? "protocol" : "no-protocol";
+        protected string DownloadLink { get => $"{Configuration["apis:data_host"]}/api/check/download/{Id}"; }
 
         protected async override Task OnInitializedAsync()
         {
@@ -50,10 +53,6 @@ namespace CheckerApp.Blazor.Pages
         private void CreateDocument()
         {
             Navigation.NavigateTo($"/contract/{Id}/check");
-        }
-        private void DownloadDocument()
-        {
-            Navigation.NavigateTo($"/api/check/download/{Id}", true);
         }
 
         private async Task AddHardware()
@@ -152,10 +151,15 @@ namespace CheckerApp.Blazor.Pages
             }
         }
 
-        private void NavigateTo(int id)
+        public void OpenHardwareDetails(TableRowClickEventArgs<HardwareVm> args)
         {
-            Navigation.NavigateTo($"/hardware/{id}/detail");
+            if (args.MouseEventArgs.Detail == 2)
+            {
+                var id = args.Item.Id;
+                Navigation.NavigateTo($"/hardware/{id}/detail");
+            }
         }
+
         private void SwitchEditMode()
         {
             Command = new UpdateContractCommandVm
