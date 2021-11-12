@@ -1,14 +1,13 @@
-﻿.check-section {
-    border-radius: 5px;
-    margin-bottom: 1.5rem;
-    overflow: hidden;
-    background: #fafbfd;
+﻿.subheader td:first-child {
+    width: auto;
+    padding-right: 2rem;
 }
 
-    .check-section h4 {
-        background-color: #00356a;
-    }
+.subheader td:nth-child(even) {
+    font-weight: bold;
+    padding-right: 4rem;
+}
 
-::deep .cb:focus {
-    box-shadow: none;
+.subheader td:last-child {
+    padding-right: 0;
 }

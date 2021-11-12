@@ -10,11 +10,15 @@ namespace CheckerApp.Blazor.Shared
 
         [Parameter] public EventCallback<SoftwareCheckDto> ValueChanged { get; set; }
 
-        string Title { get; set; }
+        string Type { get; set; }
+        string Name { get; set; }
+        string Version { get; set; }
 
         protected override void OnInitialized()
         {
-            Title = $"{Value.Software.SoftwareType.GetDisplayName()}: {Value.Software.Name} ver. {Value.Software.Version}";
+            Type = Value.Software.SoftwareType.GetDisplayName();
+            Name = Value.Software.Name;
+            Version = Value.Software.Version;
         }
     }
 }

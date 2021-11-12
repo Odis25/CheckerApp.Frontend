@@ -26,7 +26,7 @@ namespace CheckerApp.Blazor.Pages
 
         private async Task SaveChanges()
         {
-            await HttpClient.PutAsJsonAsync("account/inventoryapp", Accounts);
+            await HttpClient.PutAsJsonAsync("account/checkerapp", Accounts);
             Snackbar.Add("Изменения сохранены", Severity.Success);
         }
 

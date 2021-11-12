@@ -110,7 +110,7 @@ namespace CheckerApp.Blazor.Pages
         private async Task UpdateSoftware(int id)
         {
             var software = await _httpClient.GetFromJsonAsync<SoftwareDto>($"api/software/{id}");
-            var parameters = new DialogParameters { { "Software", software } };
+            var parameters = new DialogParameters { ["Software"] =software };
             var dialog = DialogService.Show<SoftwareUpdate>("Редактирование", parameters);
             var result = await dialog.Result;
 

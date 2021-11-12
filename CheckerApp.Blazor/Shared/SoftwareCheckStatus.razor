@@ -1,5 +1,5 @@
 ﻿
-<div class="check-section border mat-elevation-z5">
+@*<div class="check-section border mat-elevation-z5">
     <h4 class="text-center text-white py-2 m-0">@Title</h4>
     
     <div class="p-3">
@@ -29,4 +29,61 @@
             </div>
         }
     </div>
-</div>
+</div>*@
+
+<MudPaper Class="pa-4 mt-4">
+    <MudGrid>
+        <MudItem xs="12">
+            <MudPaper Class="px-2 py-4 blue darken-1 shades-text text-white subheader" Outlined="true">
+                <MudGrid>
+                    <MudItem xs="12">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Тип:</td>
+                                    <td>@Type</td>
+                                </tr>
+                                <tr>
+                                    <td>Название:</td>
+                                    <td>@Name</td>
+                                </tr>
+                                <tr>
+                                    <td>Версия:</td>
+                                    <td>@Version</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </MudItem>
+                </MudGrid>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12">
+            @for (int i = 0; i < Value.CheckParameters.Count; i++)
+            {
+                var index = i;
+
+                <MudGrid>
+                    <MudItem xs="3">
+                        <MudText Typo="Typo.body1">@Value.CheckParameters[index].Description</MudText>
+                    </MudItem>
+                    <MudItem xs="2">
+                        <MudSelect Label="Тип испытаний" Variant="Variant.Outlined" @bind-Value="Value.CheckParameters[index].Method">
+                            <MudSelectItem Value="@("-")" />
+                            <MudSelectItem Value="@("На оборудовании")" />
+                            <MudSelectItem Value="@("Имитация данных")" />
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="2">
+                        <MudSwitch @bind-Checked="Value.CheckParameters[index].Result" Label="@(Value.CheckParameters[index].Result ? "Пройдено" : "Не пройдено")" Color="Color.Success" />
+                    </MudItem>
+                    <MudItem xs="2">
+                        <MudDatePicker DisableToolbar="true" Label="Дата испытаний" Variant="Variant.Outlined" @bind-Date="Value.CheckParameters[index].Date" />
+                    </MudItem>
+                    <MudItem xs="3">
+                        <MudTextField Lines="4" Variant="Variant.Outlined" Label="Комментарий" @bind-Value="Value.CheckParameters[index].Comment" />
+                    </MudItem>
+                </MudGrid>
+            }
+        </MudItem>
+    </MudGrid>
+</MudPaper>
